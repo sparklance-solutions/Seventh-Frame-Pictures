@@ -12,6 +12,14 @@
     
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- Failsafe for No-JS -->
+    <noscript>
+        <style>
+            .reveal, .hero-content { opacity: 1 !important; transform: none !important; clip-path: none !important; }
+            #preloader { display: none !important; }
+        </style>
+    </noscript>
 </head>
 <body>
 
@@ -87,20 +95,30 @@
         <!-- Hero Section -->
         <section id="home" class="hero">
             <div class="hero-abstract-art">
-                <div class="abstract-lens"></div>
-                <div class="abstract-frame-lines"></div>
+                <div class="viewfinder">
+                    <div class="vf-ring-1"></div>
+                    <div class="vf-ring-2"></div>
+                    <div class="vf-crosshair-h"></div>
+                    <div class="vf-crosshair-v"></div>
+                    <div class="vf-bracket top-left"></div>
+                    <div class="vf-bracket top-right"></div>
+                    <div class="vf-bracket bottom-left"></div>
+                    <div class="vf-bracket bottom-right"></div>
+                </div>
                 <div class="cinematic-light-sweep"></div>
             </div>
             
-            <div class="hero-content reveal">
-                <span class="hero-label">FILM PRODUCTION • STORYTELLING • CINEMA</span>
-                <h1 class="hero-title">STORIES<br>BEYOND<br>THE FRAME.</h1>
-                <div class="gold-separator"></div>
-                <p class="hero-desc">An independent film production company developing distinctive stories through cinematic craft, visual language and purposeful storytelling.</p>
-                
-                <div class="hero-actions">
-                    <a href="#productions" class="btn btn-primary nav-link">EXPLORE PRODUCTIONS</a>
-                    <button class="btn btn-secondary modal-trigger" data-target="modal-showreel">WATCH SHOWREEL</button>
+            <div class="container hero-container">
+                <div id="hero-content" class="hero-content reveal-on-load">
+                    <span class="hero-label">FILM PRODUCTION • STORYTELLING • CINEMA</span>
+                    <h1 class="hero-title">STORIES<br>BEYOND<br>THE FRAME.</h1>
+                    <div class="gold-separator"></div>
+                    <p class="hero-desc">An independent film production company developing distinctive stories through cinematic craft, visual language and purposeful storytelling.</p>
+                    
+                    <div class="hero-actions">
+                        <a href="#productions" class="btn btn-primary nav-link">EXPLORE PRODUCTIONS</a>
+                        <button class="btn btn-secondary modal-trigger" data-target="modal-showreel">WATCH SHOWREEL</button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -116,27 +134,33 @@
                     <div class="about-pillars">
                         <div class="pillar">
                             <span class="pillar-num">01</span>
-                            <h3 class="pillar-title">STORY DEVELOPMENT</h3>
-                            <p class="pillar-desc">Cultivating original narratives and building emotional architecture.</p>
+                            <div class="pillar-content">
+                                <h3 class="pillar-title">STORY DEVELOPMENT</h3>
+                                <p class="pillar-desc">Cultivating original narratives and building emotional architecture.</p>
+                            </div>
                         </div>
                         <div class="pillar">
                             <span class="pillar-num">02</span>
-                            <h3 class="pillar-title">PRODUCTION & DIRECTION</h3>
-                            <p class="pillar-desc">Executing vision with precision, leadership, and technical excellence.</p>
+                            <div class="pillar-content">
+                                <h3 class="pillar-title">PRODUCTION & DIRECTION</h3>
+                                <p class="pillar-desc">Executing vision with precision, leadership, and technical excellence.</p>
+                            </div>
                         </div>
                         <div class="pillar">
                             <span class="pillar-num">03</span>
-                            <h3 class="pillar-title">CINEMATIC CRAFT</h3>
-                            <p class="pillar-desc">Elevating the visual language through light, shadow, and composition.</p>
+                            <div class="pillar-content">
+                                <h3 class="pillar-title">CINEMATIC CRAFT</h3>
+                                <p class="pillar-desc">Elevating the visual language through light, shadow, and composition.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
                 <div class="about-visual reveal">
                     <div class="abstract-storyboard">
-                        <div class="story-frame"></div>
-                        <div class="story-frame"></div>
-                        <div class="story-frame"></div>
+                        <div class="story-frame"><div class="frame-inner"></div></div>
+                        <div class="story-frame"><div class="frame-inner offset"></div></div>
+                        <div class="story-frame"><div class="frame-inner"></div></div>
                         <div class="cinematic-light-sweep"></div>
                     </div>
                 </div>
