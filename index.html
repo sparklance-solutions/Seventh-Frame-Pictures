@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seventh Frame Pictures | Film Production Company</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Cinematic Preloader -->
+    <div id="preloader" class="preloader">
+        <div class="preloader-content">
+            <h1 class="preloader-logo">SEVENTH FRAME<br><span>PICTURES</span></h1>
+            <p class="preloader-tagline">A FILM PRODUCTION COMPANY</p>
+            <div class="preloader-progress">
+                <div id="progress-line" class="progress-line"></div>
+            </div>
+            <p id="frame-counter" class="frame-counter" aria-live="polite">LOADING FRAME 000</p>
+        </div>
+    </div>
+
+    <!-- Cinematic Scene Transition Overlay -->
+    <div id="scene-transition" class="scene-transition">
+        <div class="scene-line"></div>
+    </div>
+
+    <!-- CSS Film Grain -->
+    <div class="film-grain"></div>
+
+    <!-- Header & Navigation -->
+    <header id="header" class="header">
+        <a href="#home" class="logo nav-link">
+            <span>SEVENTH FRAME</span>
+            <span>PICTURES</span>
+        </a>
+
+        <nav id="desktop-nav" class="desktop-nav">
+            <ul class="nav-list">
+                <li><a href="#home" class="nav-link active">HOME</a></li>
+                <li><a href="#about" class="nav-link">ABOUT</a></li>
+                <li><a href="#productions" class="nav-link">PRODUCTIONS</a></li>
+                <li><a href="#team" class="nav-link">TEAM</a></li>
+                <li><a href="#gallery" class="nav-link">GALLERY</a></li>
+                <li><a href="#contact" class="nav-link">CONTACT</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-right">
+            <div class="social-links desktop-social">
+                <a href="#" aria-label="Instagram">INSTAGRAM</a>
+                <a href="#" aria-label="X">X</a>
+            </div>
+            <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Toggle Menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="mobile-menu">
+        <nav class="mobile-nav-content">
+            <ul class="mobile-nav-list">
+                <li><a href="#home" class="mobile-nav-link">HOME</a></li>
+                <li><a href="#about" class="mobile-nav-link">ABOUT</a></li>
+                <li><a href="#productions" class="mobile-nav-link">PRODUCTIONS</a></li>
+                <li><a href="#team" class="mobile-nav-link">TEAM</a></li>
+                <li><a href="#gallery" class="mobile-nav-link">GALLERY</a></li>
+                <li><a href="#contact" class="mobile-nav-link">CONTACT</a></li>
+            </ul>
+            <div class="social-links mobile-social">
+                <a href="#" aria-label="Instagram">INSTAGRAM</a>
+                <a href="#" aria-label="X">X</a>
+            </div>
+        </nav>
+    </div>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-abstract-art">
+                <div class="abstract-lens"></div>
+                <div class="abstract-frame-lines"></div>
+                <div class="cinematic-light-sweep"></div>
+            </div>
+            
+            <div class="hero-content reveal">
+                <span class="hero-label">FILM PRODUCTION • STORYTELLING • CINEMA</span>
+                <h1 class="hero-title">STORIES<br>BEYOND<br>THE FRAME.</h1>
+                <div class="gold-separator"></div>
+                <p class="hero-desc">An independent film production company developing distinctive stories through cinematic craft, visual language and purposeful storytelling.</p>
+                
+                <div class="hero-actions">
+                    <a href="#productions" class="btn btn-primary nav-link">EXPLORE PRODUCTIONS</a>
+                    <button class="btn btn-secondary modal-trigger" data-target="modal-showreel">WATCH SHOWREEL</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section about-section">
+            <div class="container about-grid">
+                <div class="about-text reveal">
+                    <span class="section-label">ABOUT SEVENTH FRAME</span>
+                    <h2 class="section-heading">WE DEVELOP<br>STORIES WORTH<br>REMEMBERING.</h2>
+                    <p class="section-desc">Seventh Frame Pictures is an independent film production company focused on developing and producing distinctive cinematic stories. Our approach combines strong narrative thinking, visual craft and a commitment to creating films with a clear creative identity.</p>
+                    
+                    <div class="about-pillars">
+                        <div class="pillar">
+                            <span class="pillar-num">01</span>
+                            <h3 class="pillar-title">STORY DEVELOPMENT</h3>
+                            <p class="pillar-desc">Cultivating original narratives and building emotional architecture.</p>
+                        </div>
+                        <div class="pillar">
+                            <span class="pillar-num">02</span>
+                            <h3 class="pillar-title">PRODUCTION & DIRECTION</h3>
+                            <p class="pillar-desc">Executing vision with precision, leadership, and technical excellence.</p>
+                        </div>
+                        <div class="pillar">
+                            <span class="pillar-num">03</span>
+                            <h3 class="pillar-title">CINEMATIC CRAFT</h3>
+                            <p class="pillar-desc">Elevating the visual language through light, shadow, and composition.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-visual reveal">
+                    <div class="abstract-storyboard">
+                        <div class="story-frame"></div>
+                        <div class="story-frame"></div>
+                        <div class="story-frame"></div>
+                        <div class="cinematic-light-sweep"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Craft Capabilities -->
+        <section id="craft" class="section craft-section">
+            <div class="container reveal">
+                <span class="section-label text-center">OUR CRAFT</span>
+                <div class="craft-grid">
+                    <div class="craft-item">
+                        <h4 class="craft-title">STORY DEVELOPMENT</h4>
+                        <p class="craft-desc">Development of original concepts and narrative foundations.</p>
+                    </div>
+                    <div class="craft-item">
+                        <h4 class="craft-title">PRE-PRODUCTION</h4>
+                        <p class="craft-desc">Planning, creative coordination and visual development.</p>
+                    </div>
+                    <div class="craft-item">
+                        <h4 class="craft-title">FILM PRODUCTION</h4>
+                        <p class="craft-desc">Production-focused execution with attention to performance, camera and atmosphere.</p>
+                    </div>
+                    <div class="craft-item">
+                        <h4 class="craft-title">POST PRODUCTION</h4>
+                        <p class="craft-desc">Editing, sound, colour and final visual refinement.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Productions Section -->
+        <section id="productions" class="section productions-section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="section-label">CURRENT PRODUCTIONS</span>
+                    <h2 class="section-heading">STORIES IN THE MAKING.</h2>
+                    <div class="gold-separator center"></div>
+                </div>
+
+                <div class="productions-grid">
+                    <!-- Production 01 -->
+                    <div class="production-card reveal modal-trigger" data-target="modal-prod-1">
+                        <div class="production-artwork">
+                            <div class="art-layer art-border"></div>
+                            <div class="art-layer art-gradient-1"></div>
+                            <div class="art-layer art-focus-lines"></div>
+                            <div class="cinematic-light-sweep"></div>
+                        </div>
+                        <div class="production-overlay">
+                            <div class="prod-meta">
+                                <span class="prod-num">01</span>
+                                <span class="prod-status">COMING SOON</span>
+                            </div>
+                            <h3 class="prod-title">PRODUCTION 01</h3>
+                            <span class="prod-action">VIEW PROJECT</span>
+                        </div>
+                    </div>
+
+                    <!-- Production 02 -->
+                    <div class="production-card reveal modal-trigger" data-target="modal-prod-2">
+                        <div class="production-artwork">
+                            <div class="art-layer art-border"></div>
+                            <div class="art-layer art-gradient-2"></div>
+                            <div class="art-layer art-aperture"></div>
+                            <div class="cinematic-light-sweep"></div>
+                        </div>
+                        <div class="production-overlay">
+                            <div class="prod-meta">
+                                <span class="prod-num">02</span>
+                                <span class="prod-status">COMING SOON</span>
+                            </div>
+                            <h3 class="prod-title">PRODUCTION 02</h3>
+                            <span class="prod-action">VIEW PROJECT</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section id="team" class="section team-section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="section-label">THE TEAM</span>
+                    <h2 class="section-heading">THE PEOPLE<br>BEHIND THE FRAME.</h2>
+                    <div class="gold-separator"></div>
+                </div>
+
+                <div class="team-grid">
+                    <!-- Team 01 -->
+                    <div class="team-card reveal">
+                        <div class="team-avatar">
+                            <div class="avatar-abstract silhouette-1"></div>
+                            <div class="cinematic-light-sweep"></div>
+                        </div>
+                        <div class="team-info">
+                            <h4 class="team-name">TEAM MEMBER 01</h4>
+                            <span class="team-role">Creative Director</span>
+                        </div>
+                    </div>
+
+                    <!-- Team 02 -->
+                    <div class="team-card reveal">
+                        <div class="team-avatar">
+                            <div class="avatar-abstract silhouette-2"></div>
+                            <div class="cinematic-light-sweep"></div>
+                        </div>
+                        <div class="team-info">
+                            <h4 class="team-name">TEAM MEMBER 02</h4>
+                            <span class="team-role">Director</span>
+                        </div>
+                    </div>
+
+                    <!-- Team 03 -->
+                    <div class="team-card reveal">
+                        <div class="team-avatar">
+                            <div class="avatar-abstract silhouette-3"></div>
+                            <div class="cinematic-light-sweep"></div>
+                        </div>
+                        <div class="team-info">
+                            <h4 class="team-name">TEAM MEMBER 03</h4>
+                            <span class="team-role">Producer</span>
+                        </div>
+                    </div>
+
+                    <!-- Team 04 -->
+                    <div class="team-card reveal">
+                        <div class="team-avatar">
+                            <div class="avatar-abstract silhouette-4"></div>
+                            <div class="cinematic-light-sweep"></div>
+                        </div>
+                        <div class="team-info">
+                            <h4 class="team-name">TEAM MEMBER 04</h4>
+                            <span class="team-role">Cinematographer</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="section gallery-section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="section-label">GALLERY</span>
+                    <h2 class="section-heading">INSIDE THE FRAME.</h2>
+                    <div class="gold-separator center"></div>
+                </div>
+
+                <div class="gallery-grid reveal">
+                    <div class="gallery-item" data-index="0" aria-label="View Gallery Image 1">
+                        <div class="gallery-art g-lens"></div>
+                    </div>
+                    <div class="gallery-item" data-index="1" aria-label="View Gallery Image 2">
+                        <div class="gallery-art g-strip"></div>
+                    </div>
+                    <div class="gallery-item" data-index="2" aria-label="View Gallery Image 3">
+                        <div class="gallery-art g-focus"></div>
+                    </div>
+                    <div class="gallery-item" data-index="3" aria-label="View Gallery Image 4">
+                        <div class="gallery-art g-spotlight"></div>
+                    </div>
+                    <div class="gallery-item" data-index="4" aria-label="View Gallery Image 5">
+                        <div class="gallery-art g-aperture"></div>
+                    </div>
+                    <div class="gallery-item" data-index="5" aria-label="View Gallery Image 6">
+                        <div class="gallery-art g-frame"></div>
+                    </div>
+                    <div class="gallery-item" data-index="6" aria-label="View Gallery Image 7">
+                        <div class="gallery-art g-waveform"></div>
+                    </div>
+                    <div class="gallery-item" data-index="7" aria-label="View Gallery Image 8">
+                        <div class="gallery-art g-shutter"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section contact-section">
+            <div class="container contact-container reveal">
+                <span class="section-label text-center">LET'S TALK</span>
+                <h2 class="section-heading text-center">ABOUT THE NEXT STORY.</h2>
+                <div class="gold-separator center"></div>
+                <p class="contact-desc text-center">For production enquiries, collaborations and project discussions, get in touch with the Seventh Frame Pictures team.</p>
+                
+                <div class="contact-grid">
+                    <div class="contact-block">
+                        <span class="contact-label">EMAIL</span>
+                        <a href="mailto:contact@seventhframe.in" class="contact-value">contact@seventhframe.in</a>
+                    </div>
+                    <div class="contact-block">
+                        <span class="contact-label">PHONE</span>
+                        <a href="tel:+910000000000" class="contact-value">+91 XXXXX XXXXX</a>
+                    </div>
+                    <div class="contact-block">
+                        <span class="contact-label">LOCATION</span>
+                        <span class="contact-value">Kochi, Kerala, India</span>
+                    </div>
+                    <div class="contact-block">
+                        <span class="contact-label">SOCIAL</span>
+                        <div class="social-links inline-social">
+                            <a href="#">INSTAGRAM</a>
+                            <a href="#">X</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="#home" class="logo nav-link">
+                        <span>SEVENTH FRAME</span>
+                        <span>PICTURES</span>
+                    </a>
+                    <p class="footer-tagline">STORIES BEYOND THE FRAME.</p>
+                </div>
+                
+                <div class="footer-nav-block">
+                    <ul class="footer-links">
+                        <li><a href="#home" class="nav-link">HOME</a></li>
+                        <li><a href="#about" class="nav-link">ABOUT</a></li>
+                        <li><a href="#productions" class="nav-link">PRODUCTIONS</a></li>
+                        <li><a href="#team" class="nav-link">TEAM</a></li>
+                        <li><a href="#gallery" class="nav-link">GALLERY</a></li>
+                        <li><a href="#contact" class="nav-link">CONTACT</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-contact-block">
+                    <p><a href="mailto:contact@seventhframe.in">contact@seventhframe.in</a></p>
+                    <p><a href="tel:+910000000000">+91 XXXXX XXXXX</a></p>
+                    <p>Kochi, Kerala, India</p>
+                    <div class="social-links footer-social">
+                        <a href="#">INSTAGRAM</a>
+                        <a href="#">X</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="copyright">&copy; 2026 Seventh Frame Pictures. All Rights Reserved.</p>
+                
+                <!-- Mandatory Sparklance Solutions Credit -->
+                <a href="https://sparklance-solutions.netlify.app/" target="_blank" rel="noopener noreferrer" class="developer-credit">
+                    DESIGNED & POWERED BY SPARKLANCE SOLUTIONS
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==========================================
+         MODALS
+    =========================================== -->
+
+    <!-- Showreel Modal -->
+    <div id="modal-showreel" class="modal" role="dialog" aria-modal="true">
+        <div class="modal-backdrop modal-close-trigger"></div>
+        <div class="modal-content text-center">
+            <button class="modal-close-btn modal-close-trigger" aria-label="Close modal">CLOSE</button>
+            <span class="section-label">SEVENTH FRAME PICTURES</span>
+            <h2 class="section-heading">SHOWREEL</h2>
+            <div class="gold-separator center"></div>
+            <p class="modal-desc">COMING SOON</p>
+        </div>
+    </div>
+
+    <!-- Production 01 Modal -->
+    <div id="modal-prod-1" class="modal" role="dialog" aria-modal="true">
+        <div class="modal-backdrop modal-close-trigger"></div>
+        <div class="modal-content text-center">
+            <button class="modal-close-btn modal-close-trigger" aria-label="Close modal">CLOSE</button>
+            <span class="section-label">DEVELOPMENT • COMING SOON</span>
+            <h2 class="section-heading">PRODUCTION 01</h2>
+            <div class="gold-separator center"></div>
+            <p class="modal-desc">A new cinematic production currently in development.</p>
+        </div>
+    </div>
+
+    <!-- Production 02 Modal -->
+    <div id="modal-prod-2" class="modal" role="dialog" aria-modal="true">
+        <div class="modal-backdrop modal-close-trigger"></div>
+        <div class="modal-content text-center">
+            <button class="modal-close-btn modal-close-trigger" aria-label="Close modal">CLOSE</button>
+            <span class="section-label">DEVELOPMENT • COMING SOON</span>
+            <h2 class="section-heading">PRODUCTION 02</h2>
+            <div class="gold-separator center"></div>
+            <p class="modal-desc">A new cinematic production currently in development.</p>
+        </div>
+    </div>
+
+    <!-- Gallery Lightbox Modal -->
+    <div id="modal-gallery" class="modal lightbox-modal" role="dialog" aria-modal="true">
+        <div class="modal-backdrop modal-close-trigger"></div>
+        <div class="lightbox-controls">
+            <button id="lightbox-prev" class="lightbox-btn" aria-label="Previous image">PREVIOUS</button>
+            <button class="lightbox-btn modal-close-trigger" aria-label="Close lightbox">CLOSE</button>
+            <button id="lightbox-next" class="lightbox-btn" aria-label="Next image">NEXT</button>
+        </div>
+        <div class="lightbox-content" id="lightbox-content">
+            <!-- Content injected via JS -->
+        </div>
+    </div>
+
+    <!-- Script -->
+    <script src="script.js"></script>
+</body>
+</html>
