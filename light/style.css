@@ -1,0 +1,399 @@
+/* ==========================================================
+   DESIGN SYSTEM: LIGHT CINEMATIC / EDITORIAL / ART-HOUSE
+   ========================================================== */
+:root {
+    --bg-ivory: #F1EEE7;
+    --bg-secondary: #E7E2D8;
+    --text-primary: #11110F;
+    --text-muted: #77736B;
+    --bg-dark: #11110F;
+    --text-light: #F5F1E8;
+    --accent-red: #A32721;
+    
+    --font-serif: 'Bodoni Moda', serif;
+    --font-mono: 'DM Mono', monospace;
+    --font-sans: 'Manrope', sans-serif;
+    
+    --ease-cinema: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; background: var(--bg-ivory); color: var(--text-primary); width: 100%; overflow-x: hidden; }
+body {
+    font-family: var(--font-sans);
+    background-color: var(--bg-ivory);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+    width: 100%;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================
+   UTILITY & INLINE REPLACEMENTS
+   ========================================================== */
+.container { max-width: 1400px; margin: 0 auto; }
+
+.section-label-light {
+    font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 15px;
+}
+
+.section-title-light {
+    font-family: var(--font-serif); font-size: clamp(2.5rem, 5vw, 4.5rem); text-transform: uppercase; font-weight: 400; line-height: 1.1;
+}
+
+/* Global Film Grain & Vignette */
+.film-grain {
+    position: fixed; inset: 0; pointer-events: none; z-index: 9998; opacity: 0.04; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+.vignette {
+    position: fixed; inset: 0; pointer-events: none; z-index: 9997;
+    background: radial-gradient(circle, rgba(0,0,0,0) 60%, rgba(0,0,0,0.15) 100%);
+}
+
+/* ==========================================================
+   1. AUTHENTIC VINTAGE 35MM FILM LEADER PRELOADER
+   ========================================================== */
+.preloader {
+    position: fixed; inset: 0; background-color: var(--bg-ivory); color: var(--text-primary);
+    z-index: 20000; display: flex; align-items: center; justify-content: center;
+    overflow: hidden; transition: opacity 0.6s var(--ease-cinema);
+}
+.preloader.exiting { opacity: 0; pointer-events: none; }
+
+.pl-frame {
+    position: relative; width: 65vmin; height: 65vmin; display: flex; align-items: center; justify-content: center;
+    border: 2px solid var(--text-primary); background: var(--bg-ivory);
+}
+.pl-ring { position: absolute; width: 85%; height: 85%; border: 1.5px solid var(--text-primary); border-radius: 50%; }
+.pl-cross-h { position: absolute; width: 108%; height: 1px; background: var(--text-primary); }
+.pl-cross-v { position: absolute; width: 1px; height: 108%; background: var(--text-primary); }
+.pl-reg { position: absolute; width: 10px; height: 10px; border: 1px solid var(--text-primary); }
+.pl-tl { top: -6px; left: -6px; border-right: none; border-bottom: none; }
+.pl-tr { top: -6px; right: -6px; border-left: none; border-bottom: none; }
+.pl-bl { bottom: -6px; left: -6px; border-right: none; border-top: none; }
+.pl-br { bottom: -6px; right: -6px; border-left: none; border-top: none; }
+
+.pl-stage { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; visibility: hidden; }
+.pl-stage.active { opacity: 1; visibility: visible; }
+.frame-jump { animation: mechanicalJump 0.8s steps(1); }
+@keyframes mechanicalJump { 0% { transform: translateY(0); } 50% { transform: translateY(-2px) translateX(1px); } 100% { transform: translateY(0); } }
+
+.pl-num { font-family: var(--font-serif); font-size: 24vmin; font-weight: 500; line-height: 1; background: var(--bg-ivory); padding: 0 20px; z-index: 2; }
+.pl-text { font-family: var(--font-serif); font-size: clamp(1.8rem, 5vw, 4rem); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 20px; text-align: center; }
+
+.pl-graphic { width: 160px; height: 120px; position: relative; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; transform: scale(0.8); }
+
+/* Studio Light Graphic (Fresnel Spotlight) */
+.pl-spotlight { width: 65px; height: 55px; border: 2.5px solid var(--text-primary); border-radius: 6px; position: relative; background: var(--bg-ivory); z-index: 2; }
+.pl-spotlight::before { content: ''; position: absolute; top: 12px; left: -10px; width: 10px; height: 30px; border: 2px solid var(--text-primary); border-right: none; border-radius: 4px 0 0 4px; }
+.pl-spotlight::after { content: ''; position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); width: 6px; height: 25px; background: var(--text-primary); }
+.pl-beam { position: absolute; top: 60px; left: -80px; width: 220px; height: 120px; background: rgba(17, 17, 15, 0.08); clip-path: polygon(50% 0%, 0% 100%, 100% 100%); z-index: 1; }
+
+/* Cinema Camera Graphic */
+.pl-cam-body { width: 85px; height: 58px; border: 2.5px solid var(--text-primary); position: relative; border-radius: 4px; background: var(--bg-ivory); z-index: 2; }
+.pl-cam-lens { position: absolute; right: -30px; top: 13px; width: 30px; height: 32px; border: 2.5px solid var(--text-primary); border-left: none; }
+.pl-cam-reel1 { position: absolute; top: -24px; left: 10px; width: 24px; height: 24px; border: 2.5px solid var(--text-primary); border-radius: 50%; }
+.pl-cam-reel2 { position: absolute; top: -24px; left: 42px; width: 24px; height: 24px; border: 2.5px solid var(--text-primary); border-radius: 50%; }
+
+/* Clapperboard Graphic */
+.pl-clapper { width: 95px; height: 70px; border: 2.5px solid var(--text-primary); position: relative; background: var(--bg-ivory); z-index: 2; }
+.pl-clapper-top { position: absolute; top: -16px; left: -2px; right: -2px; height: 16px; border: 2.5px solid var(--text-primary); background: repeating-linear-gradient(45deg, var(--text-primary), var(--text-primary) 10px, var(--bg-ivory) 10px, var(--bg-ivory) 20px); transform-origin: bottom left; transform: rotate(-22deg); transition: transform 0.1s; }
+.pl-stage.active .pl-clapper.clap-close .pl-clapper-top { transform: rotate(0deg); }
+
+.pl-meta-text { position: absolute; font-family: var(--font-mono); font-size: clamp(0.5rem, 1.5vw, 0.6rem); letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-muted); }
+.pl-meta-tl { top: 15px; left: 15px; }
+.pl-meta-tr { top: 15px; right: 15px; }
+
+.pl-flash { position: absolute; inset: 0; background: #FFFFFF; opacity: 0; pointer-events: none; z-index: 30000; }
+.flash-active { animation: whiteFlash 0.3s steps(2) forwards; }
+@keyframes whiteFlash { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
+
+/* ==========================================================
+   2. HEADER & PERMANENT NAVIGATION
+   ========================================================== */
+header {
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 9900;
+    padding: 25px 5vw; display: flex; justify-content: space-between; align-items: center;
+    transition: background 0.4s var(--ease-cinema), padding 0.4s var(--ease-cinema), color 0.4s, border-color 0.4s;
+    border-bottom: 1px solid transparent;
+}
+header.scrolled {
+    background: rgba(241, 238, 231, 0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 18px 5vw;
+    border-bottom: 1px solid rgba(17, 17, 15, 0.1);
+    color: var(--text-primary);
+}
+header.light-nav { color: #FFFFFF; }
+header.light-nav.scrolled { color: var(--text-primary); }
+
+.logo { text-decoration: none; color: inherit; display: flex; flex-direction: column; line-height: 1.1; }
+.logo-main { font-family: var(--font-mono); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; }
+.logo-sub { font-family: var(--font-mono); font-size: 0.45rem; letter-spacing: 0.35em; opacity: 0.7; padding-top: 2px; }
+
+.nav-desktop { display: flex; align-items: center; gap: 30px; }
+.nav-desktop a {
+    text-decoration: none; color: inherit; font-family: var(--font-mono); font-size: 0.65rem; font-weight: 400;
+    letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.8; transition: opacity 0.3s;
+}
+.nav-desktop a:hover { opacity: 1; }
+
+.menu-btn-wrap { display: flex; align-items: center; gap: 15px; }
+.menu-trigger {
+    background: none; border: none; color: inherit; font-family: var(--font-mono); font-size: 0.65rem; font-weight: 500;
+    letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; gap: 6px;
+}
+
+/* Fullscreen Editorial Menu Overlay */
+.menu-overlay {
+    position: fixed; inset: 0; background: var(--bg-ivory); z-index: 15000; color: var(--text-primary);
+    display: flex; flex-direction: column; padding: 40px 5vw; overflow-y: auto; overflow-x: hidden;
+    clip-path: inset(0 0 100% 0); transition: clip-path 0.7s var(--ease-cinema);
+}
+.menu-overlay.active { clip-path: inset(0 0 0 0); }
+.menu-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8vh; }
+.menu-close { background: none; border: none; font-family: var(--font-mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.2em; cursor: pointer; color: var(--text-primary); padding: 10px 0; }
+
+.menu-links { list-style: none; display: flex; flex-direction: column; width: 100%; border-top: 1px solid var(--text-primary); }
+.menu-item { border-bottom: 1px solid rgba(17,17,15,0.15); overflow: hidden; }
+.menu-link {
+    text-decoration: none; color: var(--text-primary); display: flex; align-items: baseline; justify-content: space-between;
+    padding: 3vh 0; font-family: var(--font-serif); font-size: clamp(1.8rem, 4.5vw, 4rem); text-transform: uppercase;
+    transform: translateY(100%); transition: transform 0.6s var(--ease-cinema), padding-left 0.3s;
+}
+.menu-overlay.active .menu-link { transform: translateY(0); }
+.menu-link:hover { padding-left: 20px; color: var(--text-muted); }
+.menu-num { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.2em; font-weight: 400; opacity: 0.5; }
+
+/* ==========================================================
+   3. HERO — THE OPENING SHOT
+   ========================================================== */
+.hero {
+    position: relative; width: 100vw; height: 100vh; background-color: var(--bg-dark);
+    display: flex; flex-direction: column; justify-content: flex-end; padding: 0 5vw 8vh 5vw; overflow: hidden;
+}
+.hero-img {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.65;
+    transform: scale(1); transition: transform 2.5s var(--ease-cinema);
+}
+.hero:hover .hero-img { transform: scale(1.06); }
+.hero-overlay {
+    position: absolute; inset: 0; background: linear-gradient(to top, rgba(17,17,15,0.9) 0%, rgba(17,17,15,0.2) 50%, rgba(17,17,15,0.4) 100%);
+}
+.hero-content {
+    position: relative; z-index: 2; color: var(--text-light); display: flex; justify-content: space-between; align-items: flex-end; width: 100%; flex-wrap: wrap; gap: 20px;
+}
+.hero-title-wrap { flex: 1 1 100%; }
+.hero-title-wrap h1 {
+    font-family: var(--font-serif); font-size: clamp(3rem, 7.5vw, 7.5rem); font-weight: 400; line-height: 1.05; text-transform: uppercase; margin-bottom: 15px; letter-spacing: -0.01em;
+}
+.hero-meta { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.75; display: block; margin-bottom: 12px; }
+.hero-scroll { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.7; display: flex; align-items: center; gap: 10px; }
+
+/* ==========================================================
+   4. THE HOUSE (INTRODUCTION)
+   ========================================================== */
+.house-section { padding: 20vh 5vw; background: var(--bg-ivory); border-bottom: 1px solid rgba(17,17,15,0.1); }
+.house-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 8vw; align-items: center; }
+.house-label { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 25px; }
+.house-headline { font-family: var(--font-serif); font-size: clamp(2rem, 4.5vw, 4.2rem); line-height: 1.1; font-weight: 400; }
+.house-body { font-family: var(--font-sans); font-size: 1.05rem; color: var(--text-muted); line-height: 1.8; margin-top: 30px; max-width: 500px; }
+.house-img-wrap { width: 100%; aspect-ratio: 4/3; background: #DDD8CF; border: 1px solid rgba(17,17,15,0.15); overflow: hidden; position: relative; }
+.house-img-wrap img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(20%); transition: transform 1.2s var(--ease-cinema); }
+.house-img-wrap:hover img { transform: scale(1.03); }
+
+/* ==========================================================
+   5. SELECTED WORK — FILMS ARCHIVE (DARK CINEMA)
+   ========================================================== */
+.films-section { padding: 20vh 5vw; background: var(--bg-dark); color: var(--text-light); }
+.section-header-dark { margin-bottom: 80px; }
+.section-label-dark { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(245,241,232,0.6); display: block; margin-bottom: 15px; }
+.section-title-dark { font-family: var(--font-serif); font-size: clamp(2.5rem, 5vw, 4.5rem); text-transform: uppercase; font-weight: 400; line-height: 1.1;}
+
+.films-archive { display: flex; flex-direction: column; gap: 100px; }
+.film-row {
+    display: grid; grid-template-columns: 1.5fr 1fr; gap: 6vw; align-items: center;
+    cursor: pointer; padding-bottom: 80px; border-bottom: 1px solid rgba(245,241,232,0.15);
+}
+.film-row:nth-child(even) { grid-template-columns: 1fr 1.5fr; }
+.film-row:nth-child(even) .film-media { order: 2; }
+.film-row:nth-child(even) .film-details { order: 1; }
+
+.film-media { width: 100%; aspect-ratio: 16/9; background: #222220; border: 1px solid rgba(245,241,232,0.2); overflow: hidden; position: relative; }
+.film-media img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(25%); transition: transform 1.2s var(--ease-cinema); }
+.film-row:hover .film-media img { transform: scale(1.04); }
+
+.film-num { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.25em; color: rgba(245,241,232,0.5); display: block; margin-bottom: 12px; }
+.film-details h3 { font-family: var(--font-serif); font-size: clamp(2rem, 3.8vw, 3.2rem); text-transform: uppercase; font-weight: 400; margin-bottom: 15px; line-height: 1.1; }
+.film-status { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(245,241,232,0.6); margin-bottom: 15px; display: block; }
+.film-desc { font-family: var(--font-sans); font-size: 0.95rem; color: rgba(245,241,232,0.7); line-height: 1.7; margin-bottom: 25px; max-width: 450px; }
+.film-action { font-family: var(--font-mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; display: inline-flex; align-items: center; gap: 8px; color: var(--text-light); }
+
+/* ==========================================================
+   6. FULL-SCREEN CINEMATIC IMAGE / PHILOSOPHY MOMENT
+   ========================================================== */
+.philosophy-moment {
+    position: relative; width: 100vw; height: 100vh; background: var(--bg-dark); display: flex; align-items: center; justify-content: center; overflow: hidden;
+}
+.phil-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.6; filter: grayscale(20%); }
+.phil-content { position: relative; z-index: 2; text-align: center; color: var(--text-light); padding: 0 5vw; max-width: 1200px; }
+.phil-label { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.6; display: block; margin-bottom: 20px; }
+.phil-content h2 { font-family: var(--font-serif); font-size: clamp(2.2rem, 6.5vw, 6rem); font-weight: 400; text-transform: uppercase; line-height: 1.08; }
+
+/* ==========================================================
+   7. VISUAL ARCHIVE / GALLERY (ASYMMETRIC MOSAIC)
+   ========================================================== */
+.gallery-section { padding: 20vh 5vw; background: var(--bg-ivory); border-bottom: 1px solid rgba(17,17,15,0.1); }
+.gallery-mosaic { display: grid; grid-template-columns: repeat(12, 1fr); gap: 30px; margin-top: 60px; }
+
+.gallery-item { position: relative; overflow: hidden; background: #DDD8CF; border: 1px solid rgba(17,17,15,0.15); cursor: pointer; }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(15%); transition: transform 1.2s var(--ease-cinema); }
+.gallery-item:hover img { transform: scale(1.04); }
+.gallery-tag { position: absolute; bottom: 15px; left: 15px; background: rgba(17,17,15,0.8); color: var(--text-light); padding: 4px 10px; font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; z-index: 2; }
+
+.g-item-1 { grid-column: span 5; aspect-ratio: 4/5; }
+.g-item-2 { grid-column: span 7; aspect-ratio: 16/10; margin-top: 80px; }
+.g-item-3 { grid-column: span 4; aspect-ratio: 1/1; }
+.g-item-4 { grid-column: span 8; aspect-ratio: 21/9; }
+
+/* ==========================================================
+   8. BEHIND THE SCENES (PRODUCTION ARCHIVE)
+   ========================================================== */
+.bts-section { padding: 20vh 5vw; background: var(--bg-secondary); border-bottom: 1px solid rgba(17,17,15,0.1); }
+.bts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6vw; margin-top: 70px; align-items: start; }
+.bts-card { width: 100%; background: #DDD8CF; border: 1px solid rgba(17,17,15,0.15); overflow: hidden; position: relative; }
+.bts-card img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(20%); transition: transform 1.2s var(--ease-cinema); }
+.bts-card:hover img { transform: scale(1.03); }
+
+.bts-card-1 { aspect-ratio: 4/5; }
+.bts-card-2 { aspect-ratio: 4/5; margin-top: 120px; }
+.bts-caption { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-muted); margin-top: 15px; display: block; }
+
+/* ==========================================================
+   9. LARGE TYPOGRAPHIC STATEMENT PAUSE
+   ========================================================== */
+.quote-pause { padding: 25vh 5vw; text-align: center; background: var(--bg-ivory); border-bottom: 1px solid rgba(17,17,15,0.1); }
+.quote-title { font-family: var(--font-serif); font-size: clamp(2rem, 7vw, 6.5rem); text-transform: uppercase; line-height: 1.05; max-width: 1200px; margin: 0 auto 30px auto; font-weight: 400; }
+.quote-sub { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-muted); }
+
+/* ==========================================================
+   10. ABOUT — THE HOUSE (DARK CINEMA)
+   ========================================================== */
+.about-dark-section { padding: 20vh 5vw; background: var(--bg-dark); color: var(--text-light); }
+.about-dark-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 8vw; align-items: start; }
+.about-dark-desc { font-family: var(--font-sans); font-size: 1.1rem; color: rgba(245,241,232,0.8); line-height: 1.8; margin-top: 20px; }
+
+.capabilities-list { margin-top: 60px; border-top: 1px solid rgba(245,241,232,0.2); }
+.capability-item { display: flex; justify-content: space-between; align-items: center; padding: 25px 0; border-bottom: 1px solid rgba(245,241,232,0.2); font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase; }
+
+/* ==========================================================
+   11. CONTACT — END CREDITS (IVORY FINALE)
+   ========================================================== */
+.end-credits {
+    background: var(--bg-ivory); color: var(--text-primary); padding: 20vh 5vw 12vh 5vw;
+    display: flex; flex-direction: column; justify-content: space-between; min-height: 90vh;
+}
+.end-label {
+    font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; display: block; margin-bottom: 25px;
+}
+.end-title { font-family: var(--font-serif); font-size: clamp(2.5rem, 8vw, 7.5rem); text-transform: uppercase; margin-bottom: 50px; font-weight: 400; line-height: 1.05; }
+.end-links { display: flex; gap: 40px; font-family: var(--font-mono); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.2em; flex-wrap: wrap; margin-bottom: 90px; }
+.end-links a { color: var(--text-primary); text-decoration: none; border-bottom: 1px solid rgba(17,17,15,0.4); padding-bottom: 4px; transition: opacity 0.3s; }
+.end-links a:hover { opacity: 0.5; }
+
+.end-footer { 
+    display: flex; justify-content: space-between; align-items: flex-end; 
+    border-top: 1px solid rgba(17,17,15,0.2); padding-top: 30px; gap: 20px;
+}
+.footer-info {
+    display: flex; flex-direction: column; gap: 10px;
+    font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-muted);
+}
+.footer-credit {
+    display: flex; align-items: flex-end;
+}
+.sparklance-credit {
+    font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; 
+    color: var(--text-muted); text-decoration: none; transition: color 0.3s ease, opacity 0.3s ease; opacity: 0.7;
+}
+.sparklance-credit:hover {
+    color: var(--text-primary); opacity: 1;
+}
+
+/* ==========================================================
+   FULL-SCREEN FILM DETAIL MODALS
+   ========================================================== */
+.film-modal {
+    position: fixed; inset: 0; z-index: 18000; background: var(--bg-dark); color: var(--text-light);
+    display: flex; flex-direction: column; padding: 60px 8vw; overflow-y: auto; overflow-x: hidden;
+    clip-path: inset(100% 0 0 0); transition: clip-path 0.7s var(--ease-cinema);
+}
+.film-modal.active { clip-path: inset(0 0 0 0); }
+.modal-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 50px; flex-wrap: wrap; gap: 15px; }
+.modal-meta { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(245,241,232,0.6); }
+.modal-close-btn { background: none; border: none; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.2em; cursor: pointer; color: var(--text-light); padding: 10px 0; }
+
+.modal-body-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 6vw; align-items: start; padding-bottom: 60px; }
+.modal-img { width: 100%; aspect-ratio: 16/10; background: #222220; border: 1px solid rgba(245,241,232,0.2); overflow: hidden; }
+.modal-img img { width: 100%; height: 100%; object-fit: cover; }
+.modal-info h2 { font-family: var(--font-serif); font-size: clamp(2rem, 5vw, 4.5rem); text-transform: uppercase; font-weight: 400; margin-bottom: 20px; line-height: 1.1; }
+.modal-divider { width: 40px; height: 1px; background: rgba(245,241,232,0.4); margin: 20px 0; }
+.modal-synopsis { font-family: var(--font-sans); font-size: 1.05rem; color: rgba(245,241,232,0.8); line-height: 1.8; margin-top: 25px; }
+
+
+/* ==========================================================
+   RESPONSIVE OPTIMIZATION
+   ========================================================== */
+@media (max-width: 1024px) {
+    .nav-desktop { display: none; }
+    
+    .house-grid, .film-row, .modal-body-grid, .about-dark-grid, .bts-grid { grid-template-columns: 1fr; gap: 40px; }
+    .film-row:nth-child(even) .film-media { order: 1; }
+    .film-row:nth-child(even) .film-details { order: 2; }
+    
+    .g-item-1, .g-item-2, .g-item-3, .g-item-4 { grid-column: span 12; aspect-ratio: 16/10; margin-top: 0; }
+    .bts-card-2 { margin-top: 0; }
+}
+
+@media (max-width: 768px) {
+    .house-section, .films-section, .gallery-section, .bts-section, .about-dark-section { padding: 12vh 5vw; }
+    .quote-pause { padding: 15vh 5vw; }
+    .end-credits { padding: 15vh 5vw 8vh 5vw; }
+    
+    .hero-content { align-items: flex-start; flex-direction: column; justify-content: flex-end; padding-bottom: 4vh; }
+    
+    .end-footer { flex-direction: column; align-items: flex-start; gap: 25px; }
+    .end-links { flex-direction: column; gap: 15px; margin-bottom: 60px; }
+
+    .capabilities-list { margin-top: 40px; }
+    .capability-item { flex-direction: column; align-items: flex-start; gap: 8px; font-size: 0.65rem; }
+    
+    .film-modal { padding: 40px 5vw; }
+    .modal-top { margin-bottom: 30px; }
+    
+    .pl-graphic { transform: scale(0.65); margin-bottom: 10px; }
+}
+
+@media (max-width: 480px) {
+    .house-headline, .section-title-dark, .section-title-light, .quote-title, .end-title { font-size: 2.2rem; }
+    .hero-title-wrap h1 { font-size: 2.8rem; }
+}
+
+/* Reduced Motion Preference */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .hero-img, .house-img-wrap img, .film-media img, .gallery-item img, .bts-card img {
+        transition: none !important;
+    }
+    .hero:hover .hero-img, .house-img-wrap:hover img, .film-row:hover .film-media img, .gallery-item:hover img, .bts-card:hover img {
+        transform: none !important;
+    }
+}
