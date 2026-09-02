@@ -3,475 +3,659 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seventh Frame Pictures | Film Production Company</title>
+    <title>Sample Selection | Independent Film Production</title>
     
-    <!-- Google Fonts -->
+    <!-- Google Fonts: Cinzel (Heading), Inter (Sans) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Inter:wght@300..700&display=swap" rel="stylesheet">
     
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ==========================================================================
+           CORE VARIABLES & BASE STYLES
+           ========================================================================== */
+        :root {
+            --bg-main: #050505;
+            --text-main: #d4af37; /* Gold */
+            --border-color: rgba(212, 175, 55, 0.3);
+            --border-strong: #d4af37;
+            --accent-red: #D33F3F;
+            --font-heading: 'Cinzel', serif;
+            --font-sans: 'Inter', sans-serif;
+            --ease-snap: cubic-bezier(0.1, 0.9, 0.2, 1);
+        }
 
-    <!-- Failsafe for No-JS -->
-    <noscript>
-        <style>
-            .reveal, .hero-content { opacity: 1 !important; transform: none !important; clip-path: none !important; }
-            #preloader { display: none !important; }
-        </style>
-    </noscript>
+        body {
+            background-color: var(--bg-main);
+            color: #f1f1f1;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            font-family: var(--font-sans);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-main); }
+        ::-webkit-scrollbar-thumb { background: #77571a; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-main); }
+
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #f5edc8 0%, #d4af37 50%, #98731e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gold-border-glow {
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+        .gold-border-glow:hover {
+            border-color: var(--text-main);
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.15);
+        }
+
+        /* Subtle background grain for the main website */
+        .website-grain {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.12'/%3E%3C/svg%3E");
+            opacity: 0.1; /* Reduced to avoid gray wash */
+        }
+
+        /* ==========================================================================
+           CINEMATIC PRELOADER CONTAINER & FILM MARKINGS
+           ========================================================================== */
+        .preloader {
+            position: fixed;
+            inset: 0;
+            background-color: transparent; /* Let the shutter provide the solid black background */
+            z-index: 99999; /* Absolute top */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: border-color 0.3s ease; /* Fade border smoothly upon exit */
+        }
+
+        .preloader.exiting {
+            border-color: transparent;
+        }
+
+        /* Extremely subtle film grain to avoid washing out the black */
+        .film-grain {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 2; /* Layer correctly within preloader */
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.05; 
+            transition: opacity 0.2s ease;
+        }
+
+        .pl-borders {
+            position: absolute; inset: 15px; border: 1px solid var(--border-color); pointer-events: none; z-index: 3;
+            transition: opacity 0.2s ease;
+        }
+        .pl-reg-mark {
+            position: absolute; width: 15px; height: 15px; border: 2px solid var(--border-strong);
+        }
+        .pl-reg-tl { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+        .pl-reg-tr { top: -2px; right: -2px; border-left: none; border-bottom: none; }
+        .pl-reg-bl { bottom: -2px; left: -2px; border-right: none; border-top: none; }
+        .pl-reg-br { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+
+        /* CRITICAL FIX: 
+          All stages must be strictly hidden initially using both opacity and visibility 
+        */
+        .pl-stage {
+            position: absolute; 
+            inset: 0; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            opacity: 0; 
+            visibility: hidden; 
+            pointer-events: none;
+            transition: opacity 0.1s ease;
+            z-index: 4;
+        }
+
+        .pl-stage.active { 
+            opacity: 1; 
+            visibility: visible; 
+            pointer-events: auto;
+        }
+
+        /* Fix: Hide the stages gracefully under the flash so they don't hover over the website when shutter opens */
+        .preloader.exiting .pl-stage,
+        .preloader.exiting .pl-borders,
+        .preloader.exiting .film-grain {
+            opacity: 0 !important;
+            visibility: hidden;
+        }
+
+        /* Mechanical Jitter */
+        .frame-jump { animation: mechanicalJump 1s steps(1); }
+        @keyframes mechanicalJump { 
+            0% { transform: translateY(0); } 
+            5% { transform: translateY(-1.5vh); } 
+            10% { transform: translateY(0); } 
+        }
+
+        /* ==========================================================================
+           1. PRELOADER COUNTDOWN (3, 2, 1)
+           ========================================================================== */
+        .pl-cd-frame {
+            position: relative; width: 50vmin; height: 50vmin; max-width: 350px; max-height: 350px; 
+            display: flex; align-items: center; justify-content: center;
+        }
+        .pl-cd-ring {
+            position: absolute; width: 100%; height: 100%; 
+            border: 3px dashed var(--text-main); border-radius: 50%; opacity: 0.8;
+        }
+        .pl-cd-ring-inner {
+            position: absolute; width: 85%; height: 85%; 
+            border: 1px solid var(--border-color); border-radius: 50%;
+        }
+        .pl-cd-cross-h { position: absolute; width: 110%; height: 1px; background: var(--text-main); opacity: 0.5; }
+        .pl-cd-cross-v { position: absolute; width: 1px; height: 110%; background: var(--text-main); opacity: 0.5; }
+        .pl-cd-num {
+            font-family: var(--font-heading); font-size: 20vmin; font-weight: 700; line-height: 1; 
+            z-index: 2; color: var(--text-main); background: #050505; padding: 0 40px;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        }
+        .pl-cd-meta {
+            position: absolute; font-family: var(--font-heading); font-size: 0.7rem; font-weight: 600; 
+            letter-spacing: 0.3em; color: var(--text-main); text-transform: uppercase; 
+            background: #050505; padding: 2px 10px; opacity: 0.7;
+        }
+
+        /* ==========================================================================
+           2. LIGHTS, CAMERA, ACTION SCENES
+           ========================================================================== */
+        .pl-comp { display: flex; flex-direction: column; align-items: center; gap: 50px; position: relative; }
+        .pl-word {
+            font-family: var(--font-heading); font-size: 10vmin; font-weight: 700; letter-spacing: 0.2em; 
+            text-transform: uppercase; z-index: 2; position: relative; line-height: 1;
+            color: var(--text-main); text-shadow: 0 0 20px rgba(212, 175, 55, 0.4); background: #050505; padding: 0 20px;
+        }
+
+        /* SCENE: LIGHTS */
+        .pl-fresnel {
+            position: relative; width: 140px; height: 120px; border: 3px solid var(--text-main); 
+            border-radius: 10px 10px 0 0; border-bottom: none; display: flex; justify-content: center; align-items: flex-end;
+            background: #050505; z-index: 2;
+        }
+        .pl-fresnel-lens {
+            width: 80%; height: 40px; border: 3px solid var(--text-main); border-radius: 50% 50% 0 0; 
+            border-bottom: none; position: relative; background: #050505; z-index: 2;
+        }
+        .pl-fresnel-stand { position: absolute; bottom: -50px; width: 6px; height: 50px; background: var(--text-main); }
+        .pl-fresnel-beam {
+            position: absolute; top: -200px; left: -140px; right: -140px; height: 200px;
+            background: linear-gradient(to top, rgba(212,175,55,0.01), rgba(212,175,55,0.15));
+            clip-path: polygon(50% 100%, 0 0, 100% 0);
+            transform-origin: bottom center; transform: scaleY(0); opacity: 0; z-index: 1;
+        }
+        .pl-stage.active .pl-fresnel-beam { animation: beamOn 0.1s forwards 0.2s; }
+        @keyframes beamOn { to { transform: scaleY(1); opacity: 1; } }
+
+        /* SCENE: CAMERA */
+        .pl-cinema-cam { position: relative; width: 180px; height: 100px; border: 3px solid var(--text-main); display: flex; align-items: center; background: #050505; z-index: 2;}
+        .pl-cam-lens { position: absolute; right: -50px; width: 50px; height: 70px; border: 3px solid var(--text-main); border-left: none; background: #050505; }
+        .pl-cam-lens::after { content: ''; position: absolute; right: 10px; top: 10px; bottom: 10px; width: 3px; background: var(--text-main); }
+        .pl-cam-mag-1 { position: absolute; top: -45px; left: 20px; width: 60px; height: 60px; border: 3px solid var(--text-main); border-radius: 50%; background: #050505; }
+        .pl-cam-mag-2 { position: absolute; top: -45px; left: 90px; width: 60px; height: 60px; border: 3px solid var(--text-main); border-radius: 50%; background: #050505; }
+        .pl-cam-handle { position: absolute; top: -20px; right: 20px; width: 40px; height: 10px; border: 3px solid var(--text-main); border-bottom: none; }
+        .pl-cam-rec { position: absolute; bottom: 15px; left: 15px; width: 12px; height: 12px; background: var(--accent-red); border-radius: 50%; opacity: 0; }
+        .pl-stage.active .pl-cam-rec { animation: recBlink 0.4s infinite steps(2) 0.1s; }
+        @keyframes recBlink { 50% { opacity: 1; } }
+
+        /* SCENE: ACTION */
+        .pl-clapper { position: relative; width: 220px; height: 160px; border: 3px solid var(--text-main); display: flex; flex-direction: column; background: #050505; z-index: 2; }
+        .pl-clapper-top { 
+            width: 100%; height: 35px; border-bottom: 3px solid var(--text-main); 
+            background: repeating-linear-gradient(45deg, var(--text-main), var(--text-main) 15px, var(--bg-main) 15px, var(--bg-main) 30px); 
+            transform-origin: bottom left; transform: rotate(-25deg); transition: transform 0.1s var(--ease-snap); 
+        }
+        .pl-clapper-board { flex: 1; padding: 15px; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 10px; }
+        .pl-clapper-line { border-bottom: 2px solid var(--text-main); width: 100%; align-self: end; opacity: 0.6; }
+        .pl-stage.active .pl-clapper-top { animation: clapClose 0.1s forwards 0.8s; }
+        @keyframes clapClose { to { transform: rotate(0); } }
+
+        /* ==========================================================================
+           3. FINAL FILM FLASH TRANSITION
+           ========================================================================== */
+        .pl-flash { 
+            position: absolute; 
+            inset: 0; 
+            background: #FFFFFF; 
+            opacity: 0; 
+            pointer-events: none; 
+            z-index: 5; /* Flash blankets everything */
+            visibility: hidden; 
+        }
+        .pl-flash.flash-trigger { 
+            visibility: visible; 
+            animation: pureWhiteFlash 0.3s steps(2) forwards; 
+        }
+        @keyframes pureWhiteFlash { 
+            0% { opacity: 0; } 
+            20% { opacity: 1; } 
+            100% { opacity: 0; } 
+        }
+
+        /* Sharp Shutter Exit */
+        .pl-shutter { 
+            position: absolute; 
+            inset: 0; 
+            display: flex; 
+            pointer-events: none; 
+            z-index: 1; /* Fix: Placed behind the stages to provide the solid black background */
+        }
+        .pl-shutter-panel { 
+            flex: 1; 
+            background: #050505; 
+            transition: transform 0.6s cubic-bezier(0.86, 0, 0.07, 1); 
+        }
+        .pl-shutter-left { transform-origin: left; transform: scaleX(1); }
+        .pl-shutter-right { transform-origin: right; transform: scaleX(1); }
+        .preloader.exiting .pl-shutter-panel { transform: scaleX(0); }
+
+        /* ==========================================================================
+           WEBSITE COMPONENT STYLES
+           ========================================================================== */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-on-scroll.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Accessibility: Respect user's motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            .pl-fresnel-beam { transform: scaleY(1); opacity: 1; }
+            .pl-clapper-top { transform: rotate(0); }
+            .reveal-on-scroll { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ==========================================================================
+           PAGE SPECIFIC STYLES
+           ========================================================================== */
+        header {
+            padding: 40px 5%;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+        header h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin: 0 0 10px 0;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        header p {
+            color: rgba(241, 241, 241, 0.7);
+            font-size: 1.1rem;
+            margin: 0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        main {
+            flex: 1;
+            padding: 60px 5%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sample-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            width: 100%;
+            max-width: 1000px;
+            margin-top: 40px;
+        }
+
+        .sample-card {
+            background-color: rgba(5, 5, 5, 0.8);
+            padding: 40px 30px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sample-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--text-main), transparent);
+            opacity: 0.5;
+        }
+
+        .sample-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--text-main);
+        }
+
+        .sample-card h2 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            margin: 0 0 15px 0;
+            letter-spacing: 0.05em;
+        }
+
+        .sample-card p {
+            color: rgba(241, 241, 241, 0.7);
+            line-height: 1.6;
+            margin: 0 0 30px 0;
+            flex-grow: 1;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: transparent;
+            color: var(--text-main);
+            text-decoration: none;
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border: 1px solid var(--text-main);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background-color: var(--text-main);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .btn:hover {
+            color: var(--bg-main);
+        }
+
+        .btn:hover::before {
+            left: 0;
+        }
+
+        footer {
+            padding: 30px 5%;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            color: rgba(241, 241, 241, 0.5);
+        }
+
+    </style>
 </head>
 <body>
 
-    <!-- Cinematic Preloader -->
+    <!-- Website Grain -->
+    <div class="website-grain"></div>
+
+    <!-- Preloader -->
     <div id="preloader" class="preloader">
-        <div class="preloader-content">
-            <h1 class="preloader-logo">SEVENTH FRAME<br><span>PICTURES</span></h1>
-            <p class="preloader-tagline">A FILM PRODUCTION COMPANY</p>
-            <div class="preloader-progress">
-                <div id="progress-line" class="progress-line"></div>
-            </div>
-            <p id="frame-counter" class="frame-counter" aria-live="polite">LOADING FRAME 000</p>
+        <!-- Film Grain specifically for preloader -->
+        <div class="film-grain"></div>
+        
+        <!-- Shutter Panels (Provides solid black background) -->
+        <div class="pl-shutter">
+            <div class="pl-shutter-panel pl-shutter-left"></div>
+            <div class="pl-shutter-panel pl-shutter-right"></div>
         </div>
+
+        <!-- Borders and Registration Marks -->
+        <div class="pl-borders">
+            <div class="pl-reg-mark pl-reg-tl"></div>
+            <div class="pl-reg-mark pl-reg-tr"></div>
+            <div class="pl-reg-mark pl-reg-bl"></div>
+            <div class="pl-reg-mark pl-reg-br"></div>
+        </div>
+
+        <!-- Stage 3 (Countdown) -->
+        <div class="pl-stage frame-jump" id="stage-3">
+            <div class="pl-cd-frame">
+                <div class="pl-cd-ring"></div>
+                <div class="pl-cd-ring-inner"></div>
+                <div class="pl-cd-cross-h"></div>
+                <div class="pl-cd-cross-v"></div>
+                <span class="pl-cd-num">3</span>
+                <span class="pl-cd-meta" style="top: -15px; left: 50%; transform: translateX(-50%);">Sync</span>
+                <span class="pl-cd-meta" style="bottom: -15px; left: 50%; transform: translateX(-50%);">Frame</span>
+            </div>
+        </div>
+
+        <!-- Stage 2 (Countdown) -->
+        <div class="pl-stage frame-jump" id="stage-2">
+            <div class="pl-cd-frame">
+                <div class="pl-cd-ring"></div>
+                <div class="pl-cd-ring-inner"></div>
+                <div class="pl-cd-cross-h"></div>
+                <div class="pl-cd-cross-v"></div>
+                <span class="pl-cd-num">2</span>
+                <span class="pl-cd-meta" style="top: -15px; left: 50%; transform: translateX(-50%);">Sync</span>
+                <span class="pl-cd-meta" style="bottom: -15px; left: 50%; transform: translateX(-50%);">Frame</span>
+            </div>
+        </div>
+
+        <!-- Stage 1 (Countdown) -->
+        <div class="pl-stage frame-jump" id="stage-1">
+            <div class="pl-cd-frame">
+                <div class="pl-cd-ring"></div>
+                <div class="pl-cd-ring-inner"></div>
+                <div class="pl-cd-cross-h"></div>
+                <div class="pl-cd-cross-v"></div>
+                <span class="pl-cd-num">1</span>
+                <span class="pl-cd-meta" style="top: -15px; left: 50%; transform: translateX(-50%);">Sync</span>
+                <span class="pl-cd-meta" style="bottom: -15px; left: 50%; transform: translateX(-50%);">Frame</span>
+            </div>
+        </div>
+
+        <!-- Stage: LIGHTS -->
+        <div class="pl-stage frame-jump" id="stage-lights">
+            <div class="pl-comp">
+                <div class="pl-fresnel">
+                    <div class="pl-fresnel-lens"></div>
+                    <div class="pl-fresnel-stand"></div>
+                    <div class="pl-fresnel-beam"></div>
+                </div>
+                <span class="pl-word">Lights</span>
+            </div>
+        </div>
+
+        <!-- Stage: CAMERA -->
+        <div class="pl-stage frame-jump" id="stage-camera">
+            <div class="pl-comp">
+                <div class="pl-cinema-cam">
+                    <div class="pl-cam-mag-1"></div>
+                    <div class="pl-cam-mag-2"></div>
+                    <div class="pl-cam-lens"></div>
+                    <div class="pl-cam-handle"></div>
+                    <div class="pl-cam-rec"></div>
+                </div>
+                <span class="pl-word">Camera</span>
+            </div>
+        </div>
+
+        <!-- Stage: ACTION -->
+        <div class="pl-stage frame-jump" id="stage-action">
+            <div class="pl-comp">
+                <div class="pl-clapper">
+                    <div class="pl-clapper-top"></div>
+                    <div class="pl-clapper-board">
+                        <div class="pl-clapper-line"></div>
+                        <div class="pl-clapper-line"></div>
+                        <div class="pl-clapper-line"></div>
+                        <div class="pl-clapper-line"></div>
+                    </div>
+                </div>
+                <span class="pl-word">Action</span>
+            </div>
+        </div>
+
+        <!-- Flash Effect -->
+        <div class="pl-flash" id="pl-flash"></div>
     </div>
 
-    <!-- Cinematic Scene Transition Overlay -->
-    <div id="scene-transition" class="scene-transition">
-        <div class="scene-line"></div>
-    </div>
-
-    <!-- CSS Film Grain -->
-    <div class="film-grain"></div>
-
-    <!-- Header & Navigation -->
-    <header id="header" class="header">
-        <a href="#home" class="logo nav-link">
-            <span>SEVENTH FRAME</span>
-            <span>PICTURES</span>
-        </a>
-
-        <nav id="desktop-nav" class="desktop-nav">
-            <ul class="nav-list">
-                <li><a href="#home" class="nav-link active">HOME</a></li>
-                <li><a href="#about" class="nav-link">ABOUT</a></li>
-                <li><a href="#productions" class="nav-link">PRODUCTIONS</a></li>
-                <li><a href="#team" class="nav-link">TEAM</a></li>
-                <li><a href="#gallery" class="nav-link">GALLERY</a></li>
-                <li><a href="#contact" class="nav-link">CONTACT</a></li>
-            </ul>
-        </nav>
-
-        <div class="header-right">
-            <div class="social-links desktop-social">
-                <a href="#" aria-label="Instagram">INSTAGRAM</a>
-                <a href="#" aria-label="X">X</a>
-            </div>
-            <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Toggle Menu">
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-            </button>
-        </div>
+    <!-- Main Content -->
+    <header class="reveal-on-scroll">
+        <h1 class="gold-gradient-text">Samples Ready</h1>
+        <p>We have successfully uploaded the requested samples. Please review the available varieties below.</p>
     </header>
 
-    <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu" class="mobile-menu">
-        <nav class="mobile-nav-content">
-            <ul class="mobile-nav-list">
-                <li><a href="#home" class="mobile-nav-link">HOME</a></li>
-                <li><a href="#about" class="mobile-nav-link">ABOUT</a></li>
-                <li><a href="#productions" class="mobile-nav-link">PRODUCTIONS</a></li>
-                <li><a href="#team" class="mobile-nav-link">TEAM</a></li>
-                <li><a href="#gallery" class="mobile-nav-link">GALLERY</a></li>
-                <li><a href="#contact" class="mobile-nav-link">CONTACT</a></li>
-            </ul>
-            <div class="social-links mobile-social">
-                <a href="#" aria-label="Instagram">INSTAGRAM</a>
-                <a href="#" aria-label="X">X</a>
-            </div>
-        </nav>
-    </div>
-
     <main>
-        <!-- Hero Section -->
-        <section id="home" class="hero">
-            <div class="hero-abstract-art">
-                <div class="viewfinder">
-                    <div class="vf-ring-1"></div>
-                    <div class="vf-ring-2"></div>
-                    <div class="vf-crosshair-h"></div>
-                    <div class="vf-crosshair-v"></div>
-                    <div class="vf-bracket top-left"></div>
-                    <div class="vf-bracket top-right"></div>
-                    <div class="vf-bracket bottom-left"></div>
-                    <div class="vf-bracket bottom-right"></div>
-                </div>
-                <div class="cinematic-light-sweep"></div>
-            </div>
+        <div class="sample-grid">
             
-            <div class="container hero-container">
-                <div id="hero-content" class="hero-content reveal-on-load">
-                    <span class="hero-label">FILM PRODUCTION • STORYTELLING • CINEMA</span>
-                    <h1 class="hero-title">STORIES<br>BEYOND<br>THE FRAME.</h1>
-                    <div class="gold-separator"></div>
-                    <p class="hero-desc">An independent film production company developing distinctive stories through cinematic craft, visual language and purposeful storytelling.</p>
-                    
-                    <div class="hero-actions">
-                        <a href="#productions" class="btn btn-primary nav-link">EXPLORE PRODUCTIONS</a>
-                        <button class="btn btn-secondary modal-trigger" data-target="modal-showreel">WATCH SHOWREEL</button>
-                    </div>
-                </div>
+            <!-- Light Sample Card -->
+            <div class="sample-card gold-border-glow reveal-on-scroll" style="transition-delay: 0.1s;">
+                <div class="sample-icon">☼</div>
+                <h2 class="gold-gradient-text">Light Theme</h2>
+                <p>Experience the cinematic narrative in a bright, ethereal atmosphere. This sample utilizes an ivory and soft secondary palette, emphasizing clarity and an editorial feel while maintaining the core typography and animations.</p>
+                <a href="/light" class="btn">View Light Sample</a>
             </div>
-        </section>
 
-        <!-- About Section -->
-        <section id="about" class="section about-section">
-            <div class="container about-grid">
-                <div class="about-text reveal">
-                    <span class="section-label">ABOUT SEVENTH FRAME</span>
-                    <h2 class="section-heading">WE DEVELOP<br>STORIES WORTH<br>REMEMBERING.</h2>
-                    <p class="section-desc">Seventh Frame Pictures is an independent film production company focused on developing and producing distinctive cinematic stories. Our approach combines strong narrative thinking, visual craft and a commitment to creating films with a clear creative identity.</p>
-                    
-                    <div class="about-pillars">
-                        <div class="pillar">
-                            <span class="pillar-num">01</span>
-                            <div class="pillar-content">
-                                <h3 class="pillar-title">STORY DEVELOPMENT</h3>
-                                <p class="pillar-desc">Cultivating original narratives and building emotional architecture.</p>
-                            </div>
-                        </div>
-                        <div class="pillar">
-                            <span class="pillar-num">02</span>
-                            <div class="pillar-content">
-                                <h3 class="pillar-title">PRODUCTION & DIRECTION</h3>
-                                <p class="pillar-desc">Executing vision with precision, leadership, and technical excellence.</p>
-                            </div>
-                        </div>
-                        <div class="pillar">
-                            <span class="pillar-num">03</span>
-                            <div class="pillar-content">
-                                <h3 class="pillar-title">CINEMATIC CRAFT</h3>
-                                <p class="pillar-desc">Elevating the visual language through light, shadow, and composition.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="about-visual reveal">
-                    <div class="abstract-storyboard">
-                        <div class="story-frame"><div class="frame-inner"></div></div>
-                        <div class="story-frame"><div class="frame-inner offset"></div></div>
-                        <div class="story-frame"><div class="frame-inner"></div></div>
-                        <div class="cinematic-light-sweep"></div>
-                    </div>
-                </div>
+            <!-- Dark Sample Card -->
+            <div class="sample-card gold-border-glow reveal-on-scroll" style="transition-delay: 0.2s;">
+                <div class="sample-icon">☾</div>
+                <h2 class="gold-gradient-text">Dark Theme</h2>
+                <p>Immerse yourself in a moody, high-contrast environment. This sample leans heavily into deep blacks and muted metallic accents, providing a stark, dramatic backdrop perfect for intense visual storytelling.</p>
+                <a href="/dark" class="btn">View Dark Sample</a>
             </div>
-        </section>
 
-        <!-- Craft Capabilities -->
-        <section id="craft" class="section craft-section">
-            <div class="container reveal">
-                <span class="section-label text-center">OUR CRAFT</span>
-                <div class="craft-grid">
-                    <div class="craft-item">
-                        <h4 class="craft-title">STORY DEVELOPMENT</h4>
-                        <p class="craft-desc">Development of original concepts and narrative foundations.</p>
-                    </div>
-                    <div class="craft-item">
-                        <h4 class="craft-title">PRE-PRODUCTION</h4>
-                        <p class="craft-desc">Planning, creative coordination and visual development.</p>
-                    </div>
-                    <div class="craft-item">
-                        <h4 class="craft-title">FILM PRODUCTION</h4>
-                        <p class="craft-desc">Production-focused execution with attention to performance, camera and atmosphere.</p>
-                    </div>
-                    <div class="craft-item">
-                        <h4 class="craft-title">POST PRODUCTION</h4>
-                        <p class="craft-desc">Editing, sound, colour and final visual refinement.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Productions Section -->
-        <section id="productions" class="section productions-section">
-            <div class="container">
-                <div class="section-header reveal">
-                    <span class="section-label">CURRENT PRODUCTIONS</span>
-                    <h2 class="section-heading">STORIES IN THE MAKING.</h2>
-                    <div class="gold-separator center"></div>
-                </div>
-
-                <div class="productions-grid">
-                    <!-- Production 01 -->
-                    <div class="production-card reveal modal-trigger" data-target="modal-prod-1">
-                        <div class="production-artwork">
-                            <div class="art-layer art-border"></div>
-                            <div class="art-layer art-gradient-1"></div>
-                            <div class="art-layer art-focus-lines"></div>
-                            <div class="cinematic-light-sweep"></div>
-                        </div>
-                        <div class="production-overlay">
-                            <div class="prod-meta">
-                                <span class="prod-num">01</span>
-                                <span class="prod-status">COMING SOON</span>
-                            </div>
-                            <h3 class="prod-title">PRODUCTION 01</h3>
-                            <span class="prod-action">VIEW PROJECT</span>
-                        </div>
-                    </div>
-
-                    <!-- Production 02 -->
-                    <div class="production-card reveal modal-trigger" data-target="modal-prod-2">
-                        <div class="production-artwork">
-                            <div class="art-layer art-border"></div>
-                            <div class="art-layer art-gradient-2"></div>
-                            <div class="art-layer art-aperture"></div>
-                            <div class="cinematic-light-sweep"></div>
-                        </div>
-                        <div class="production-overlay">
-                            <div class="prod-meta">
-                                <span class="prod-num">02</span>
-                                <span class="prod-status">COMING SOON</span>
-                            </div>
-                            <h3 class="prod-title">PRODUCTION 02</h3>
-                            <span class="prod-action">VIEW PROJECT</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Team Section -->
-        <section id="team" class="section team-section">
-            <div class="container">
-                <div class="section-header reveal">
-                    <span class="section-label">THE TEAM</span>
-                    <h2 class="section-heading">THE PEOPLE<br>BEHIND THE FRAME.</h2>
-                    <div class="gold-separator"></div>
-                </div>
-
-                <div class="team-grid">
-                    <!-- Team 01 -->
-                    <div class="team-card reveal">
-                        <div class="team-avatar">
-                            <div class="avatar-abstract silhouette-1"></div>
-                            <div class="cinematic-light-sweep"></div>
-                        </div>
-                        <div class="team-info">
-                            <h4 class="team-name">TEAM MEMBER 01</h4>
-                            <span class="team-role">Creative Director</span>
-                        </div>
-                    </div>
-
-                    <!-- Team 02 -->
-                    <div class="team-card reveal">
-                        <div class="team-avatar">
-                            <div class="avatar-abstract silhouette-2"></div>
-                            <div class="cinematic-light-sweep"></div>
-                        </div>
-                        <div class="team-info">
-                            <h4 class="team-name">TEAM MEMBER 02</h4>
-                            <span class="team-role">Director</span>
-                        </div>
-                    </div>
-
-                    <!-- Team 03 -->
-                    <div class="team-card reveal">
-                        <div class="team-avatar">
-                            <div class="avatar-abstract silhouette-3"></div>
-                            <div class="cinematic-light-sweep"></div>
-                        </div>
-                        <div class="team-info">
-                            <h4 class="team-name">TEAM MEMBER 03</h4>
-                            <span class="team-role">Producer</span>
-                        </div>
-                    </div>
-
-                    <!-- Team 04 -->
-                    <div class="team-card reveal">
-                        <div class="team-avatar">
-                            <div class="avatar-abstract silhouette-4"></div>
-                            <div class="cinematic-light-sweep"></div>
-                        </div>
-                        <div class="team-info">
-                            <h4 class="team-name">TEAM MEMBER 04</h4>
-                            <span class="team-role">Cinematographer</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Gallery Section -->
-        <section id="gallery" class="section gallery-section">
-            <div class="container">
-                <div class="section-header reveal">
-                    <span class="section-label">GALLERY</span>
-                    <h2 class="section-heading">INSIDE THE FRAME.</h2>
-                    <div class="gold-separator center"></div>
-                </div>
-
-                <div class="gallery-grid reveal">
-                    <div class="gallery-item" data-index="0" aria-label="View Gallery Image 1">
-                        <div class="gallery-art g-lens"></div>
-                    </div>
-                    <div class="gallery-item" data-index="1" aria-label="View Gallery Image 2">
-                        <div class="gallery-art g-strip"></div>
-                    </div>
-                    <div class="gallery-item" data-index="2" aria-label="View Gallery Image 3">
-                        <div class="gallery-art g-focus"></div>
-                    </div>
-                    <div class="gallery-item" data-index="3" aria-label="View Gallery Image 4">
-                        <div class="gallery-art g-spotlight"></div>
-                    </div>
-                    <div class="gallery-item" data-index="4" aria-label="View Gallery Image 5">
-                        <div class="gallery-art g-aperture"></div>
-                    </div>
-                    <div class="gallery-item" data-index="5" aria-label="View Gallery Image 6">
-                        <div class="gallery-art g-frame"></div>
-                    </div>
-                    <div class="gallery-item" data-index="6" aria-label="View Gallery Image 7">
-                        <div class="gallery-art g-waveform"></div>
-                    </div>
-                    <div class="gallery-item" data-index="7" aria-label="View Gallery Image 8">
-                        <div class="gallery-art g-shutter"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="section contact-section">
-            <div class="container contact-container reveal">
-                <span class="section-label text-center">LET'S TALK</span>
-                <h2 class="section-heading text-center">ABOUT THE NEXT STORY.</h2>
-                <div class="gold-separator center"></div>
-                <p class="contact-desc text-center">For production enquiries, collaborations and project discussions, get in touch with the Seventh Frame Pictures team.</p>
-                
-                <div class="contact-grid">
-                    <div class="contact-block">
-                        <span class="contact-label">EMAIL</span>
-                        <a href="mailto:contact@seventhframe.in" class="contact-value">contact@seventhframe.in</a>
-                    </div>
-                    <div class="contact-block">
-                        <span class="contact-label">PHONE</span>
-                        <a href="tel:+910000000000" class="contact-value">+91 XXXXX XXXXX</a>
-                    </div>
-                    <div class="contact-block">
-                        <span class="contact-label">LOCATION</span>
-                        <span class="contact-value">Kochi, Kerala, India</span>
-                    </div>
-                    <div class="contact-block">
-                        <span class="contact-label">SOCIAL</span>
-                        <div class="social-links inline-social">
-                            <a href="#">INSTAGRAM</a>
-                            <a href="#">X</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-top">
-                <div class="footer-brand">
-                    <a href="#home" class="logo nav-link">
-                        <span>SEVENTH FRAME</span>
-                        <span>PICTURES</span>
-                    </a>
-                    <p class="footer-tagline">STORIES BEYOND THE FRAME.</p>
-                </div>
-                
-                <div class="footer-nav-block">
-                    <ul class="footer-links">
-                        <li><a href="#home" class="nav-link">HOME</a></li>
-                        <li><a href="#about" class="nav-link">ABOUT</a></li>
-                        <li><a href="#productions" class="nav-link">PRODUCTIONS</a></li>
-                        <li><a href="#team" class="nav-link">TEAM</a></li>
-                        <li><a href="#gallery" class="nav-link">GALLERY</a></li>
-                        <li><a href="#contact" class="nav-link">CONTACT</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-contact-block">
-                    <p><a href="mailto:contact@seventhframe.in">contact@seventhframe.in</a></p>
-                    <p><a href="tel:+910000000000">+91 XXXXX XXXXX</a></p>
-                    <p>Kochi, Kerala, India</p>
-                    <div class="social-links footer-social">
-                        <a href="#">INSTAGRAM</a>
-                        <a href="#">X</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p class="copyright">&copy; 2026 Seventh Frame Pictures. All Rights Reserved.</p>
-                
-                <!-- Mandatory Sparklance Solutions Credit -->
-                <a href="https://sparklance-solutions.netlify.app/" target="_blank" rel="noopener noreferrer" class="developer-credit">
-                    DESIGNED & POWERED BY SPARKLANCE SOLUTIONS
-                </a>
-            </div>
-        </div>
+    <footer class="reveal-on-scroll" style="transition-delay: 0.3s;">
+        <p>&copy; 2026 Independent Film Production. All rights reserved.</p>
     </footer>
 
-    <!-- ==========================================
-         MODALS
-    =========================================== -->
+    <!-- JavaScript for Preloader and Scroll Reveal -->
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            
+            /* --- PRELOADER LOGIC --- */
+            const sleep = ms => new Promise(r => setTimeout(r, ms));
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            
+            // Timing adjustments based on user preference
+            const stageDuration = prefersReducedMotion ? 50 : 900; 
+            const preloader = document.getElementById('preloader');
+            const flash = document.getElementById('pl-flash');
+            
+            const stages = [
+                document.getElementById('stage-3'),
+                document.getElementById('stage-2'),
+                document.getElementById('stage-1'),
+                document.getElementById('stage-lights'),
+                document.getElementById('stage-camera'),
+                document.getElementById('stage-action')
+            ];
 
-    <!-- Showreel Modal -->
-    <div id="modal-showreel" class="modal" role="dialog" aria-modal="true">
-        <div class="modal-backdrop modal-close-trigger"></div>
-        <div class="modal-content text-center">
-            <button class="modal-close-btn modal-close-trigger" aria-label="Close modal">CLOSE</button>
-            <span class="section-label">SEVENTH FRAME PICTURES</span>
-            <h2 class="section-heading">SHOWREEL</h2>
-            <div class="gold-separator center"></div>
-            <p class="modal-desc">COMING SOON</p>
-        </div>
-    </div>
+            // Prevent scrolling during preloader
+            document.body.style.overflow = 'hidden';
 
-    <!-- Production 01 Modal -->
-    <div id="modal-prod-1" class="modal" role="dialog" aria-modal="true">
-        <div class="modal-backdrop modal-close-trigger"></div>
-        <div class="modal-content text-center">
-            <button class="modal-close-btn modal-close-trigger" aria-label="Close modal">CLOSE</button>
-            <span class="section-label">DEVELOPMENT • COMING SOON</span>
-            <h2 class="section-heading">PRODUCTION 01</h2>
-            <div class="gold-separator center"></div>
-            <p class="modal-desc">A new cinematic production currently in development.</p>
-        </div>
-    </div>
+            if (preloader) {
+                // Ensure small initial delay so browser paints properly before sequence starts
+                await sleep(100);
 
-    <!-- Production 02 Modal -->
-    <div id="modal-prod-2" class="modal" role="dialog" aria-modal="true">
-        <div class="modal-backdrop modal-close-trigger"></div>
-        <div class="modal-content text-center">
-            <button class="modal-close-btn modal-close-trigger" aria-label="Close modal">CLOSE</button>
-            <span class="section-label">DEVELOPMENT • COMING SOON</span>
-            <h2 class="section-heading">PRODUCTION 02</h2>
-            <div class="gold-separator center"></div>
-            <p class="modal-desc">A new cinematic production currently in development.</p>
-        </div>
-    </div>
+                for (let i = 0; i < stages.length; i++) {
+                    const currentStage = stages[i];
+                    if (!currentStage) continue;
 
-    <!-- Gallery Lightbox Modal -->
-    <div id="modal-gallery" class="modal lightbox-modal" role="dialog" aria-modal="true">
-        <div class="modal-backdrop modal-close-trigger"></div>
-        <div class="lightbox-controls">
-            <button id="lightbox-prev" class="lightbox-btn" aria-label="Previous image">PREVIOUS</button>
-            <button class="lightbox-btn modal-close-trigger" aria-label="Close lightbox">CLOSE</button>
-            <button id="lightbox-next" class="lightbox-btn" aria-label="Next image">NEXT</button>
-        </div>
-        <div class="lightbox-content" id="lightbox-content">
-            <!-- Content injected via JS -->
-        </div>
-    </div>
+                    // Hide previous stage
+                    if (i > 0 && stages[i-1]) {
+                        stages[i-1].classList.remove('active');
+                    }
+                    
+                    // Show current stage
+                    currentStage.classList.add('active');
 
-    <!-- Script -->
-    <script src="script.js"></script>
+                    // If it's the last stage (Action), handle the clapper and flash
+                    if (i === stages.length - 1) {
+                        // Wait for clapper animation (approx 0.8s defined in CSS)
+                        await sleep(prefersReducedMotion ? 50 : 850); 
+                        
+                        // Trigger Flash
+                        if (flash) flash.classList.add('flash-trigger');
+                        
+                        // Wait for flash peak before starting exit
+                        await sleep(150); 
+                    } else {
+                        // Standard wait between stages
+                        await sleep(stageDuration);
+                    }
+                }
+
+                // Initiate Exit Sequence (Shutter opens)
+                preloader.classList.add('exiting');
+                
+                // Wait for shutter animation to finish (0.6s defined in CSS) before hiding completely
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                    document.body.style.overflow = ''; // Restore scrolling
+                    
+                    // Trigger scroll reveals after preloader finishes
+                    revealElements();
+                }, 600);
+            }
+
+            /* --- SCROLL REVEAL LOGIC --- */
+            function revealElements() {
+                const reveals = document.querySelectorAll('.reveal-on-scroll');
+                for (let i = 0; i < reveals.length; i++) {
+                    const windowHeight = window.innerHeight;
+                    const elementTop = reveals[i].getBoundingClientRect().top;
+                    const elementVisible = 50;
+
+                    if (elementTop < windowHeight - elementVisible) {
+                        reveals[i].classList.add('active');
+                    }
+                }
+            }
+
+            window.addEventListener('scroll', revealElements);
+            // Initial check just in case elements are already in view (handled primarily after preloader though)
+            // revealElements(); 
+        });
+    </script>
 </body>
 </html>
+I have combined the provided CSS into a single HTML file and added a clean, cinematic layout presenting the "Light" and "Dark" sample options as requested. The cinematic preloader is fully integrated and functional.
