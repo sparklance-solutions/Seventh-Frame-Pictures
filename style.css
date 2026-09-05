@@ -16,12 +16,14 @@ body {
     background-color: var(--bg-main);
     color: #f1f1f1;
     overflow-x: hidden;
+    /* Prevent overscroll bounce on mac to maintain cinematic feel */
+    overscroll-behavior-y: none;
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: var(--bg-main); }
-::-webkit-scrollbar-thumb { background: #77571a; border-radius: 4px; }
+::-webkit-scrollbar-thumb { background: #3a2a0d; border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--text-main); }
 
 .gold-gradient-text {
@@ -30,7 +32,7 @@ body {
     -webkit-text-fill-color: transparent;
 }
 
-/* Subtle background grain for the main website */
+/* Cinematic Film Grain */
 .website-grain {
     position: fixed;
     inset: 0;
@@ -38,10 +40,39 @@ body {
     z-index: 10;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.12'/%3E%3C/svg%3E");
     opacity: 0.1;
+    mix-blend-mode: overlay;
+}
+
+/* Cinematic Vignette */
+.cinematic-vignette {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9;
+    background: radial-gradient(circle, transparent 50%, rgba(0,0,0,0.8) 150%);
+}
+
+/* Scroll-linked Gold Lines */
+.gold-line-x {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--text-main), transparent);
+    width: 100%;
+    transform-origin: center;
+}
+.gold-line-y {
+    width: 1px;
+    background: linear-gradient(180deg, transparent, var(--text-main), transparent);
+    height: 100%;
+    transform-origin: top;
+}
+
+/* General Layout Utilities for GSAP initial states */
+.invisible-until-scroll {
+    visibility: hidden;
 }
 
 /* ==========================================================================
-   CINEMATIC PRELOADER CONTAINER & FILM MARKINGS
+   CINEMATIC PRELOADER CONTAINER & FILM MARKINGS (PRESERVED)
    ========================================================================== */
 .preloader {
     position: fixed;
@@ -236,7 +267,7 @@ body {
 .pl-shutter-right { transform-origin: right; transform: scaleX(1); }
 .preloader.exiting .pl-shutter-panel { transform: scaleX(0); }
 
-/* Accessibility: Respect user's motion preferences */
+/* Accessibility */
 @media (prefers-reduced-motion: reduce) {
     * {
         animation-duration: 0.01ms !important;
@@ -246,9 +277,4 @@ body {
     }
     .pl-fresnel-beam { transform: scaleY(1); opacity: 1; }
     .pl-clapper-top { transform: rotate(0); }
-}
-
-/* General Layout Utilities */
-.clip-path-reveal {
-    clip-path: inset(0 0 100% 0);
 }
