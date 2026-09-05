@@ -18,7 +18,7 @@ const getMotionPref = () => !window.matchMedia('(prefers-reduced-motion: reduce)
 const galleryImages = [
   "/images/projector.webp",
   "/images/chair.webp",
-  "/images/camera.webp"
+  "/images/camera.webp",
 ];
 
 // ==========================================================================
