@@ -175,7 +175,7 @@ const Navbar = ({ isReady }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         <a href="#hero" className="flex items-center space-x-3 group outline-none">
           <div className="w-10 h-10 rounded-full border border-gold-400 flex items-center justify-center text-gold-400 font-cinzel font-bold text-base group-hover:bg-gold-400 group-hover:text-black transition duration-300">
-            <img src="/images/logo.webp" alt="Logo" className="w-6 h-6 object-contain hidden" />
+            <img src="public/images/logo.webp" alt="Logo" className="w-6 h-6 object-contain hidden" />
             SF
           </div>
           <div>
