@@ -135,7 +135,7 @@
     <!-- 1. NAVIGATION -->
     <header id="navbar" class="fixed top-0 left-0 right-0 z-40 bg-[#050505]/85 backdrop-blur-md border-b border-gold-400/20 transition-all duration-500">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between relative">
-            <!-- Empty div for flexbox spacing to keep logo centered if needed, or left-aligned links -->
+            <!-- Left-aligned links -->
             <nav class="hidden xl:flex flex-1 items-center space-x-6 font-cinzel text-[10px] md:text-xs tracking-[0.2em] text-gray-300">
                 <a href="#hero" class="hover:text-gold-400 transition">HOME</a>
                 <a href="#films" class="hover:text-gold-400 transition">FILMS</a>
@@ -146,13 +146,14 @@
                 <a href="#contact" class="hover:text-gold-400 transition">CONTACT</a>
             </nav>
 
-            <!-- Centered Logo -->
-            <a href="#hero" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 outline-none group">
-                <img src="logo.webp" alt="Seventh Frame Logo" class="h-16 w-auto object-contain drop-shadow-md transition-transform duration-300 group-hover:scale-105" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <!-- Centered Logo (Exactly as in original) -->
+            <a href="#hero" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 outline-none group flex justify-center w-auto">
+                <img src="/images/logo.webp" alt="Seventh Frame Logo" class="h-16 w-auto object-contain drop-shadow-md transition-transform duration-300 group-hover:scale-105" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                 <!-- Fallback if image fails to load -->
                 <div style="display: none;" class="w-12 h-12 rounded-full border border-gold-400 items-center justify-center text-gold-400 font-cinzel font-bold text-lg group-hover:bg-gold-400 group-hover:text-black transition duration-300 shadow-lg shadow-gold-400/10">SF</div>
             </a>
 
+            <!-- Right-aligned actions -->
             <div class="hidden xl:flex flex-1 justify-end items-center space-x-4">
                 <button onclick="openModal('trailerModal')" class="px-5 py-2 border border-gold-400 text-gold-400 font-cinzel text-xs tracking-widest rounded hover:bg-gold-400 hover:text-black transition duration-300 shadow-sm">
                     <i class="fa-solid fa-play mr-2 text-[10px]"></i> SHOWREEL
@@ -455,7 +456,8 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
             <div>
                 <div class="flex items-center space-x-3 mb-6">
-                    <img src="logo.webp" alt="Seventh Frame Logo" class="h-16 w-auto object-contain grayscale opacity-80" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <!-- Footer Logo (Left-aligned) -->
+                    <img src="/images/logo.webp" alt="Seventh Frame Logo" class="h-16 w-auto object-contain drop-shadow-md grayscale opacity-80" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                     <div style="display: none;" class="w-12 h-12 rounded-full border border-gold-400 items-center justify-center text-gold-400 font-cinzel font-bold text-lg">SF</div>
                 </div>
                 <p class="font-sans font-light text-gray-500 text-xs leading-relaxed">
