@@ -1,8 +1,14 @@
 /* ==========================================================================
-   STRICT CINEMATIC PRELOADER CONTROLLER
+   STRICT CINEMATIC PRELOADER CONTROLLER & CORE SETUP
    ========================================================================== */
 
-// 1. Immediately lock scrolling globally before anything renders
+// 1. Immediately force browser scroll to top on reload, ignoring history position
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
+
+// 2. Lock scrolling globally before anything renders
 document.documentElement.style.overflow = 'hidden';
 document.body.style.overflow = 'hidden';
 
@@ -101,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 /* ==========================================================================
-   WEBSITE INTERACTIONS (Preserved logic)
+   WEBSITE INTERACTIONS
    ========================================================================== */
 
 // Hero Slider Carousel
@@ -124,7 +130,7 @@ if (slides.length > 0) {
     setInterval(() => {
         currentHeroSlide = (currentHeroSlide + 1) % slides.length;
         setHeroSlide(currentHeroSlide);
-    }, 5000);
+    }, 6000); // Slower, more cinematic pace
 }
 
 // Navbar blur and dynamic styling on scroll
@@ -138,9 +144,9 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Cinematic Scroll Reveal Observer
+// Cinematic Scroll Reveal Observer (Vanilla JS)
 const observerOptions = {
-    threshold: 0.15,
+    threshold: 0.1, // Trigger earlier
     rootMargin: '0px 0px -50px 0px'
 };
 
@@ -148,6 +154,8 @@ const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('active');
+            // Unobserve after firing to prevent re-triggering constantly
+            observer.unobserve(entry.target);
         }
     });
 }, observerOptions);
@@ -164,13 +172,21 @@ function toggleMobileMenu() {
     }
 }
 
-// Modal controls
+// Modal and Video Controls
 function openModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
         modal.classList.remove('hidden');
         document.documentElement.style.overflow = 'hidden';
         document.body.style.overflow = 'hidden';
+        
+        // Autoplay logic if a video is embedded
+        const video = modal.querySelector('video');
+        if (video) {
+            video.play().catch(error => {
+                console.log("Autoplay was prevented by browser. User interaction required.");
+            });
+        }
     }
 }
 
@@ -180,5 +196,12 @@ function closeModal(modalId) {
         modal.classList.add('hidden');
         document.documentElement.style.overflow = '';
         document.body.style.overflow = '';
+        
+        // Stop video playback on close
+        const video = modal.querySelector('video');
+        if (video) {
+            video.pause();
+            video.currentTime = 0;
+        }
     }
 }
