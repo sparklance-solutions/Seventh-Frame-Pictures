@@ -68,7 +68,7 @@ body {
 
 /* General Layout Utilities for GSAP initial states */
 .invisible-until-scroll {
-    visibility: hidden;
+    visibility: visible;
 }
 
 /* ==========================================================================
