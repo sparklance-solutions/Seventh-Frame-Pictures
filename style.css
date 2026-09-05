@@ -36,41 +36,42 @@ border-color: var(--text-main);
 box-shadow: 0 0 25px rgba(212, 175, 55, 0.15);
 }
 
-/* Subtle background grain for the main website */
+/* Subtle background grain for the main website /
 .website-grain {
 position: fixed;
 inset: 0;
 pointer-events: none;
 z-index: 10;
 background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.12'/%3E%3C/svg%3E");
-opacity: 0.1;
+opacity: 0.1; / Reduced to avoid gray wash */
 }
 
 /* ==========================================================================
-CINEMATIC PRELOADER CONTAINER & FILM MARKINGS (DO NOT TOUCH)
-========================================================================== */
+CINEMATIC PRELOADER CONTAINER & FILM MARKINGS
+========================================================================== /
 .preloader {
 position: fixed;
 inset: 0;
-background-color: transparent;
-z-index: 99999;
+background-color: transparent; / Let the shutter provide the solid black background /
+z-index: 99999; / Absolute top /
 display: flex;
 align-items: center;
 justify-content: center;
 overflow: hidden;
 border: 1px solid var(--border-color);
-transition: border-color 0.3s ease;
+transition: border-color 0.3s ease; / Fade border smoothly upon exit */
 }
 
 .preloader.exiting {
 border-color: transparent;
 }
 
+/* Extremely subtle film grain to avoid washing out the black /
 .film-grain {
 position: absolute;
 inset: 0;
 pointer-events: none;
-z-index: 2;
+z-index: 2; / Layer correctly within preloader */
 background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 opacity: 0.05;
 transition: opacity 0.2s ease;
@@ -80,12 +81,15 @@ transition: opacity 0.2s ease;
 position: absolute; inset: 15px; border: 1px solid var(--border-color); pointer-events: none; z-index: 3;
 transition: opacity 0.2s ease;
 }
-.pl-reg-mark { position: absolute; width: 15px; height: 15px; border: 2px solid var(--border-strong); }
+.pl-reg-mark {
+position: absolute; width: 15px; height: 15px; border: 2px solid var(--border-strong);
+}
 .pl-reg-tl { top: -2px; left: -2px; border-right: none; border-bottom: none; }
 .pl-reg-tr { top: -2px; right: -2px; border-left: none; border-bottom: none; }
 .pl-reg-bl { bottom: -2px; left: -2px; border-right: none; border-top: none; }
 .pl-reg-br { bottom: -2px; right: -2px; border-left: none; border-top: none; }
 
+/* All stages must be strictly hidden initially using both opacity and visibility */
 .pl-stage {
 position: absolute;
 inset: 0;
@@ -105,6 +109,7 @@ visibility: visible;
 pointer-events: auto;
 }
 
+/* Hide the stages gracefully under the flash so they don't hover over the website when shutter opens */
 .preloader.exiting .pl-stage,
 .preloader.exiting .pl-borders,
 .preloader.exiting .film-grain {
@@ -112,6 +117,7 @@ opacity: 0 !important;
 visibility: hidden;
 }
 
+/* Mechanical Jitter */
 .frame-jump { animation: mechanicalJump 1s steps(1); }
 @keyframes mechanicalJump {
 0% { transform: translateY(0); }
@@ -158,6 +164,7 @@ text-transform: uppercase; z-index: 2; position: relative; line-height: 1;
 color: var(--text-main); text-shadow: 0 0 20px rgba(212, 175, 55, 0.4); background: #050505; padding: 0 20px;
 }
 
+/* SCENE: LIGHTS */
 .pl-fresnel {
 position: relative; width: 140px; height: 120px; border: 3px solid var(--text-main);
 border-radius: 10px 10px 0 0; border-bottom: none; display: flex; justify-content: center; align-items: flex-end;
@@ -177,6 +184,7 @@ transform-origin: bottom center; transform: scaleY(0); opacity: 0; z-index: 1;
 .pl-stage.active .pl-fresnel-beam { animation: beamOn 0.1s forwards 0.2s; }
 @keyframes beamOn { to { transform: scaleY(1); opacity: 1; } }
 
+/* SCENE: CAMERA */
 .pl-cinema-cam { position: relative; width: 180px; height: 100px; border: 3px solid var(--text-main); display: flex; align-items: center; background: #050505; z-index: 2;}
 .pl-cam-lens { position: absolute; right: -50px; width: 50px; height: 70px; border: 3px solid var(--text-main); border-left: none; background: #050505; }
 .pl-cam-lens::after { content: ''; position: absolute; right: 10px; top: 10px; bottom: 10px; width: 3px; background: var(--text-main); }
@@ -187,6 +195,7 @@ transform-origin: bottom center; transform: scaleY(0); opacity: 0; z-index: 1;
 .pl-stage.active .pl-cam-rec { animation: recBlink 0.4s infinite steps(2) 0.1s; }
 @keyframes recBlink { 50% { opacity: 1; } }
 
+/* SCENE: ACTION */
 .pl-clapper { position: relative; width: 220px; height: 160px; border: 3px solid var(--text-main); display: flex; flex-direction: column; background: #050505; z-index: 2; }
 .pl-clapper-top {
 width: 100%; height: 35px; border-bottom: 3px solid var(--text-main);
@@ -200,14 +209,14 @@ transform-origin: bottom left; transform: rotate(-25deg); transition: transform 
 
 /* ==========================================================================
 3. FINAL FILM FLASH TRANSITION
-========================================================================== */
+========================================================================== /
 .pl-flash {
 position: absolute;
 inset: 0;
 background: #FFFFFF;
 opacity: 0;
 pointer-events: none;
-z-index: 5;
+z-index: 5; / Flash blankets everything */
 visibility: hidden;
 }
 .pl-flash.flash-trigger {
@@ -220,12 +229,13 @@ animation: pureWhiteFlash 0.3s steps(2) forwards;
 100% { opacity: 0; }
 }
 
+/* Sharp Shutter Exit /
 .pl-shutter {
 position: absolute;
 inset: 0;
 display: flex;
 pointer-events: none;
-z-index: 1;
+z-index: 1; / Placed behind the stages to provide the solid black background */
 }
 .pl-shutter-panel {
 flex: 1;
