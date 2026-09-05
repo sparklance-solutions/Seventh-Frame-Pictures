@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SEVENTH FRAME PICTURES | Cinematic Excellence</title>
-    
-    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
     
     <!-- Tailwind CSS CDN & Config -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -46,16 +45,19 @@
 <body class="bg-[#050505] text-gray-100 selection:bg-gold-500 selection:text-black">
 
     <!-- ==========================================================================
-         CINEMATIC PRELOADER (STRICTLY PRESERVED)
+         CINEMATIC PRELOADER - STRICTLY UNTOUCHED
          ========================================================================== -->
     <div id="preloader" class="preloader">
         <div class="film-grain"></div>
         
+        <!-- Registration Marks -->
         <div class="pl-borders">
             <div class="pl-reg-mark pl-reg-tl"></div><div class="pl-reg-mark pl-reg-tr"></div>
             <div class="pl-reg-mark pl-reg-bl"></div><div class="pl-reg-mark pl-reg-br"></div>
         </div>
         
+        <!-- STAGE: 3 -->
+        <!-- NOTE: No active classes are set in HTML. JS controls everything. -->
         <div class="pl-stage" id="stage-3">
             <div class="pl-cd-frame">
                 <div class="pl-cd-ring"></div><div class="pl-cd-ring-inner"></div>
@@ -65,6 +67,7 @@
             </div>
         </div>
         
+        <!-- STAGE: 2 -->
         <div class="pl-stage" id="stage-2">
             <div class="pl-cd-frame">
                 <div class="pl-cd-ring" style="transform: rotate(45deg);"></div><div class="pl-cd-ring-inner"></div>
@@ -74,6 +77,7 @@
             </div>
         </div>
         
+        <!-- STAGE: 1 -->
         <div class="pl-stage" id="stage-1">
             <div class="pl-cd-frame">
                 <div class="pl-cd-ring" style="transform: rotate(90deg);"></div><div class="pl-cd-ring-inner"></div>
@@ -83,6 +87,7 @@
             </div>
         </div>
 
+        <!-- STAGE: LIGHTS -->
         <div class="pl-stage" id="stage-lights">
             <div class="pl-comp">
                 <div class="pl-fresnel">
@@ -94,6 +99,7 @@
             </div>
         </div>
 
+        <!-- STAGE: CAMERA -->
         <div class="pl-stage" id="stage-camera">
             <div class="pl-comp">
                 <div class="pl-cinema-cam">
@@ -107,6 +113,7 @@
             </div>
         </div>
 
+        <!-- STAGE: ACTION -->
         <div class="pl-stage" id="stage-action">
             <div class="pl-comp">
                 <div class="pl-clapper">
@@ -120,8 +127,10 @@
             </div>
         </div>
         
+        <!-- FILM FLASH TRANSITION -->
         <div class="pl-flash" id="pl-flash"></div>
         
+        <!-- EXIT SHUTTER -->
         <div class="pl-shutter">
             <div class="pl-shutter-panel pl-shutter-left"></div>
             <div class="pl-shutter-panel pl-shutter-right"></div>
@@ -132,318 +141,319 @@
     <!-- Website Film Grain -->
     <div class="website-grain"></div>
 
-    <!-- 1. NAVIGATION -->
-    <header id="navbar" class="fixed top-0 left-0 right-0 z-40 bg-[#050505]/85 backdrop-blur-md border-b border-gold-400/20 transition-all duration-500">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between relative">
-            <!-- Left-aligned links -->
-            <nav class="hidden xl:flex flex-1 items-center space-x-6 font-cinzel text-[10px] md:text-xs tracking-[0.2em] text-gray-300">
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-40 bg-[#050505]/90 backdrop-blur-sm border-b border-gold-400/10 transition-all duration-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="#hero" class="flex items-center space-x-3 group">
+                <img src="images/logo.webp" alt="Seventh Frame Logo" class="h-10 w-auto object-contain opacity-90 group-hover:opacity-100 transition duration-300">
+                <div class="hidden sm:block">
+                    <span class="font-cinzel text-sm md:text-base font-bold tracking-widest text-white group-hover:text-gold-400 transition duration-300 block">SEVENTH FRAME</span>
+                    <span class="text-[8px] tracking-[0.3em] text-gray-500 uppercase block">PICTURES LLP.</span>
+                </div>
+            </a>
+
+            <nav class="hidden md:flex items-center space-x-8 font-cinzel text-[10px] tracking-[0.2em] text-gray-400">
                 <a href="#hero" class="hover:text-gold-400 transition">HOME</a>
-                <a href="#films" class="hover:text-gold-400 transition">FILMS</a>
+                <a href="#movies" class="hover:text-gold-400 transition">OUR FILMS</a>
                 <a href="#directors" class="hover:text-gold-400 transition">DIRECTORS</a>
                 <a href="#showreel" class="hover:text-gold-400 transition">SHOWREEL</a>
                 <a href="#gallery" class="hover:text-gold-400 transition">GALLERY</a>
                 <a href="#about" class="hover:text-gold-400 transition">ABOUT</a>
+                <a href="#partner" class="hover:text-gold-400 transition">PARTNER</a>
                 <a href="#contact" class="hover:text-gold-400 transition">CONTACT</a>
             </nav>
 
-            <!-- Centered Logo (Exactly as in original) -->
-            <a href="#hero" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 outline-none group flex justify-center w-auto">
-                <img src="/images/logo.webp" alt="Seventh Frame Logo" class="h-16 w-auto object-contain drop-shadow-md transition-transform duration-300 group-hover:scale-105" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <!-- Fallback if image fails to load -->
-                <div style="display: none;" class="w-12 h-12 rounded-full border border-gold-400 items-center justify-center text-gold-400 font-cinzel font-bold text-lg group-hover:bg-gold-400 group-hover:text-black transition duration-300 shadow-lg shadow-gold-400/10">SF</div>
-            </a>
-
-            <!-- Right-aligned actions -->
-            <div class="hidden xl:flex flex-1 justify-end items-center space-x-4">
-                <button onclick="openModal('trailerModal')" class="px-5 py-2 border border-gold-400 text-gold-400 font-cinzel text-xs tracking-widest rounded hover:bg-gold-400 hover:text-black transition duration-300 shadow-sm">
-                    <i class="fa-solid fa-play mr-2 text-[10px]"></i> SHOWREEL
-                </button>
-            </div>
-
-            <!-- Mobile Menu Toggle (Right aligned) -->
-            <div class="xl:hidden flex-1 flex justify-end">
-                <button onclick="toggleMobileMenu()" class="text-gold-400 text-xl focus:outline-none p-2">
-                    <i class="fa-solid fa-bars" id="menu-icon"></i>
-                </button>
-            </div>
+            <button onclick="toggleMobileMenu()" class="md:hidden text-gold-400 text-xl focus:outline-none p-2">
+                <i class="fa-solid fa-bars" id="menu-icon"></i>
+            </button>
         </div>
 
-        <!-- Mobile Navigation -->
-        <div id="mobile-menu" class="hidden xl:hidden bg-[#0a0a0a] border-b border-gold-400/20 px-6 py-6 space-y-4 font-cinzel text-xs tracking-[0.2em] shadow-2xl">
-            <a href="#hero" onclick="toggleMobileMenu()" class="block text-gray-300 hover:text-gold-400">HOME</a>
-            <a href="#films" onclick="toggleMobileMenu()" class="block text-gray-300 hover:text-gold-400">OUR FILMS</a>
-            <a href="#directors" onclick="toggleMobileMenu()" class="block text-gray-300 hover:text-gold-400">DIRECTORS BOARD</a>
-            <a href="#showreel" onclick="toggleMobileMenu()" class="block text-gray-300 hover:text-gold-400">SHOWREEL</a>
-            <a href="#gallery" onclick="toggleMobileMenu()" class="block text-gray-300 hover:text-gold-400">GALLERY</a>
-            <a href="#about" onclick="toggleMobileMenu()" class="block text-gray-300 hover:text-gold-400">ABOUT US</a>
-            <a href="#partner" onclick="toggleMobileMenu()" class="block text-gray-300 hover:text-gold-400">PARTNER WITH US</a>
-            <a href="#contact" onclick="toggleMobileMenu()" class="block text-gray-300 hover:text-gold-400">CONTACT US</a>
+        <div id="mobile-menu" class="hidden md:hidden bg-[#080808] border-b border-gold-400/20 px-6 py-6 space-y-4 font-cinzel text-xs tracking-[0.2em]">
+            <a href="#hero" onclick="toggleMobileMenu()" class="block text-gray-400 hover:text-gold-400 transition">HOME</a>
+            <a href="#movies" onclick="toggleMobileMenu()" class="block text-gray-400 hover:text-gold-400 transition">OUR FILMS</a>
+            <a href="#directors" onclick="toggleMobileMenu()" class="block text-gray-400 hover:text-gold-400 transition">DIRECTORS</a>
+            <a href="#showreel" onclick="toggleMobileMenu()" class="block text-gray-400 hover:text-gold-400 transition">SHOWREEL</a>
+            <a href="#gallery" onclick="toggleMobileMenu()" class="block text-gray-400 hover:text-gold-400 transition">GALLERY</a>
+            <a href="#about" onclick="toggleMobileMenu()" class="block text-gray-400 hover:text-gold-400 transition">ABOUT US</a>
+            <a href="#partner" onclick="toggleMobileMenu()" class="block text-gray-400 hover:text-gold-400 transition">PARTNER</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="block text-gray-400 hover:text-gold-400 transition">CONTACT</a>
         </div>
     </header>
 
-    <!-- 1. HOME (Hero) -->
+    <!-- SECTION: HOME -->
     <section id="hero" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-        <div class="absolute inset-0 z-0 bg-black">
-            <div class="hero-slide absolute inset-0 transition-opacity duration-1000 opacity-100" style="background-image: url('/images/projector.webp'); background-size: cover; background-position: center;">
-                <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/70 to-[#050505]/40"></div>
-            </div>
-            <div class="hero-slide absolute inset-0 transition-opacity duration-1000 opacity-0" style="background-image: url('/images/camera.webp'); background-size: cover; background-position: center;">
-                <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/70 to-[#050505]/40"></div>
+        <div class="absolute inset-0 z-0">
+            <div class="hero-bg absolute inset-0" style="background-image: url('images/projector.webp'); background-size: cover; background-position: center; background-attachment: fixed;">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/70 to-[#050505]/30"></div>
+                <div class="absolute inset-0 bg-black/40"></div>
             </div>
         </div>
 
-        <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center reveal-on-scroll active">
-            <div class="reveal-fade-up inline-block px-4 py-1.5 border border-gold-400/50 rounded-full bg-gold-400/10 text-gold-300 font-cinzel text-xs tracking-[0.3em] uppercase mb-6 backdrop-blur-sm shadow-lg shadow-gold-400/10">
-                ✦ INDEPENDENT CINEMATIC PRODUCTIONS ✦
+        <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center anim-fade-up">
+            <div class="inline-block px-4 py-1.5 border border-gold-400/30 bg-black/50 text-gold-400 font-cinzel text-[10px] tracking-[0.4em] uppercase mb-8 backdrop-blur-sm">
+                INDEPENDENT CINEMA
             </div>
-            <h1 class="reveal-fade-up font-cinzel text-4xl sm:text-6xl md:text-7xl font-black tracking-wider text-white mb-6 uppercase drop-shadow-2xl" style="transition-delay: 100ms;">
-                SEVENTH FRAME <span class="gold-gradient-text block mt-2">PICTURES</span>
+            <h1 class="font-cinzel text-5xl md:text-7xl lg:text-8xl font-black tracking-widest text-white mb-4 uppercase drop-shadow-2xl leading-none">
+                SEVENTH <br/><span class="text-gold-500">FRAME</span>
             </h1>
-            <p class="reveal-blur font-sans font-light text-gray-300 text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed" style="transition-delay: 200ms;">
-                Dedicated to crafting visually striking narratives and high-quality motion pictures for the modern cinematic landscape.
+            <div class="w-24 h-[1px] bg-gold-400/50 mx-auto mb-8"></div>
+            <p class="font-sans font-light text-gray-400 text-sm md:text-base max-w-xl mx-auto mb-12 tracking-wide leading-relaxed">
+                Dedicated to crafting visually striking narratives and high-quality motion pictures.
             </p>
-            <div class="reveal-scale flex flex-col sm:flex-row items-center justify-center gap-4" style="transition-delay: 300ms;">
-                <a href="#films" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-gold-600 to-gold-400 text-black font-cinzel font-bold text-xs tracking-[0.25em] rounded shadow-xl hover:brightness-110 transition duration-300">
-                    VIEW SLATE
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+                <a href="#movies" class="w-full sm:w-auto px-8 py-3 bg-transparent border border-gold-400/50 text-gold-400 font-cinzel text-xs tracking-[0.2em] hover:bg-gold-400 hover:text-black transition duration-500 uppercase">
+                    Our Films
                 </a>
-                <button onclick="openModal('trailerModal')" class="w-full sm:w-auto px-8 py-4 border border-gold-400/60 text-gold-300 font-cinzel font-semibold text-xs tracking-[0.25em] rounded hover:bg-gold-400/10 transition duration-300">
-                    <i class="fa-solid fa-play mr-2"></i> SHOWREEL
+                <button onclick="openModal('trailerModal')" class="w-full sm:w-auto px-8 py-3 bg-gold-600/10 border border-transparent text-white font-cinzel text-xs tracking-[0.2em] hover:border-white/30 transition duration-500 uppercase flex items-center justify-center group">
+                    <i class="fa-solid fa-play mr-3 text-[10px] text-gold-400 group-hover:text-white transition"></i> Showreel
                 </button>
             </div>
+        </div>
+    </section>
 
-            <div class="reveal-fade-up flex justify-center space-x-3 mt-16" style="transition-delay: 400ms;">
-                <button onclick="setHeroSlide(0)" class="hero-dot w-3 h-3 rounded-full bg-gold-400 transition" aria-label="Slide 1"></button>
-                <button onclick="setHeroSlide(1)" class="hero-dot w-3 h-3 rounded-full bg-gray-600 transition" aria-label="Slide 2"></button>
+    <!-- SECTION: OUR FILMS -->
+    <section id="movies" class="py-32 bg-[#050505] relative overflow-hidden">
+        <!-- Cinematic background line -->
+        <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-gold-400/20 to-transparent anim-line-sweep"></div>
+        
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-24 anim-fade-up">
+                <h2 class="font-cinzel text-2xl md:text-4xl font-bold text-white tracking-widest uppercase">Our Films</h2>
+                <div class="w-12 h-[2px] bg-gold-500 mx-auto mt-6"></div>
+            </div>
+
+            <div class="space-y-32">
+                <!-- PRODUCTION NO. 1 -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
+                    <div class="lg:col-span-7 anim-slide-right relative group">
+                        <div class="aspect-[16/9] overflow-hidden border border-white/5 relative">
+                            <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition duration-700 z-10 pointer-events-none"></div>
+                            <!-- Placeholder visual -->
+                            <div class="w-full h-full bg-[#0a0a0a] flex items-center justify-center border border-white/5">
+                                <span class="font-cinzel text-gold-400/30 text-2xl tracking-[0.3em]">SCENE 01</span>
+                            </div>
+                        </div>
+                        <!-- Frame decorations -->
+                        <div class="absolute -top-2 -left-2 w-4 h-4 border-t border-l border-gold-400/50"></div>
+                        <div class="absolute -bottom-2 -right-2 w-4 h-4 border-b border-r border-gold-400/50"></div>
+                    </div>
+                    
+                    <div class="lg:col-span-5 anim-fade-up">
+                        <div class="text-gold-500 font-cinzel text-[10px] tracking-[0.3em] uppercase mb-4">In Development</div>
+                        <h3 class="font-cinzel text-3xl md:text-4xl font-bold text-white mb-6 uppercase">Production No. 1</h3>
+                        <p class="font-sans font-light text-gray-400 text-sm leading-relaxed mb-8">
+                            Currently in the early stages of development. More details regarding the cast, crew, and synopsis will be announced as production progresses.
+                        </p>
+                        <div class="border-t border-white/10 pt-6">
+                            <span class="block text-xs font-cinzel text-gray-500 tracking-widest uppercase mb-1">Status</span>
+                            <span class="block text-sm text-white font-sans font-light">Pre-Production</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PRODUCTION NO. 2 -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
+                    <div class="lg:col-span-7 lg:order-2 anim-slide-left relative group">
+                        <div class="aspect-[16/9] overflow-hidden border border-white/5 relative">
+                            <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition duration-700 z-10 pointer-events-none"></div>
+                            <!-- Placeholder visual -->
+                            <div class="w-full h-full bg-[#0a0a0a] flex items-center justify-center border border-white/5">
+                                <span class="font-cinzel text-gold-400/30 text-2xl tracking-[0.3em]">SCENE 02</span>
+                            </div>
+                        </div>
+                         <!-- Frame decorations -->
+                         <div class="absolute -top-2 -right-2 w-4 h-4 border-t border-r border-gold-400/50"></div>
+                         <div class="absolute -bottom-2 -left-2 w-4 h-4 border-b border-l border-gold-400/50"></div>
+                    </div>
+                    
+                    <div class="lg:col-span-5 lg:order-1 anim-fade-up">
+                        <div class="text-gold-500 font-cinzel text-[10px] tracking-[0.3em] uppercase mb-4">Announced</div>
+                        <h3 class="font-cinzel text-3xl md:text-4xl font-bold text-white mb-6 uppercase">Production No. 2</h3>
+                        <p class="font-sans font-light text-gray-400 text-sm leading-relaxed mb-8">
+                            A forthcoming project currently in the planning phase. Principal photography dates and project specifications remain confidential at this time.
+                        </p>
+                        <div class="border-t border-white/10 pt-6">
+                            <span class="block text-xs font-cinzel text-gray-500 tracking-widest uppercase mb-1">Status</span>
+                            <span class="block text-sm text-white font-sans font-light">Development</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- 2. OUR FILMS -->
-    <section id="films" class="py-24 bg-[#080808] relative">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 reveal-on-scroll">
-            <div class="text-center mb-16 border-b border-gold-400/20 pb-10">
-                <span class="reveal-fade-up text-gold-400 font-cinzel text-xs tracking-[0.3em] uppercase block">Current Slate</span>
-                <h2 class="reveal-fade-up font-cinzel text-3xl md:text-5xl font-bold text-white mt-2 mb-6" style="transition-delay: 100ms;">OUR FILMS</h2>
-                <div class="gold-line mx-auto" style="transition-delay: 200ms;"></div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                <!-- Production 1 -->
-                <div class="reveal-scale group relative bg-[#0f0f0f] rounded-lg overflow-hidden border border-gold-400/20 gold-border-glow transition-all duration-500" style="transition-delay: 100ms;">
-                    <div class="relative h-[480px] overflow-hidden bg-black">
-                        <img src="/images/projector.webp" alt="Production No. 1 Background" class="w-full h-full object-cover group-hover:scale-105 cinematic-zoom opacity-70 group-hover:opacity-100">
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/80 to-transparent"></div>
-                        <div class="absolute top-4 right-4 bg-black/70 backdrop-blur-md border border-gold-400/50 text-gold-300 text-[10px] font-cinzel px-2.5 py-1 rounded">
-                            IN DEVELOPMENT
-                        </div>
-                    </div>
-                    <div class="p-8 relative -mt-32">
-                        <div class="text-xs text-gold-400 font-cinzel tracking-widest mb-2">Feature Film</div>
-                        <h3 class="font-cinzel text-2xl font-bold text-white mb-3 group-hover:text-gold-400 transition">PRODUCTION NO. 1</h3>
-                        <p class="text-gray-400 text-sm mb-6 font-sans font-light">Currently in pre-production. Principal photography is scheduled to commence shortly.</p>
-                        <button class="w-full py-3 border border-gold-400/60 text-gold-300 font-cinzel text-xs tracking-widest rounded hover:bg-gold-400 hover:text-black transition duration-300">
-                            DETAILS PENDING
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Production 2 -->
-                <div class="reveal-scale group relative bg-[#0f0f0f] rounded-lg overflow-hidden border border-gold-400/20 gold-border-glow transition-all duration-500" style="transition-delay: 250ms;">
-                    <div class="relative h-[480px] overflow-hidden bg-black">
-                        <img src="/images/chair.webp" alt="Production No. 2 Background" class="w-full h-full object-cover group-hover:scale-105 cinematic-zoom opacity-70 group-hover:opacity-100">
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/80 to-transparent"></div>
-                        <div class="absolute top-4 right-4 bg-black/70 backdrop-blur-md border border-gold-400/50 text-gold-300 text-[10px] font-cinzel px-2.5 py-1 rounded">
-                            EARLY STAGES
-                        </div>
-                    </div>
-                    <div class="p-8 relative -mt-32">
-                        <div class="text-xs text-gold-400 font-cinzel tracking-widest mb-2">Documentary Feature</div>
-                        <h3 class="font-cinzel text-2xl font-bold text-white mb-3 group-hover:text-gold-400 transition">PRODUCTION NO. 2</h3>
-                        <p class="text-gray-400 text-sm mb-6 font-sans font-light">Scriptment and research phase ongoing. Further project details will be announced soon.</p>
-                        <button class="w-full py-3 border border-gold-400/60 text-gold-300 font-cinzel text-xs tracking-widest rounded hover:bg-gold-400 hover:text-black transition duration-300">
-                            DETAILS PENDING
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 4. DIRECTORS BOARD -->
-    <section id="directors" class="py-24 bg-[#080808] relative border-t border-gold-400/10">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 reveal-on-scroll">
-            <div class="text-center mb-16">
-                <span class="reveal-fade-up text-gold-400 font-cinzel text-xs tracking-[0.3em] uppercase block">Creative Visionaries</span>
-                <h2 class="reveal-fade-up font-cinzel text-3xl md:text-5xl font-bold text-white mt-2 mb-6" style="transition-delay: 100ms;">DIRECTORS BOARD</h2>
+    <!-- SECTION: DIRECTORS BOARD -->
+    <section id="directors" class="py-32 bg-[#080808] relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20 anim-fade-up">
+                <h2 class="font-cinzel text-2xl md:text-4xl font-bold text-white tracking-widest uppercase">Directors Board</h2>
+                <div class="w-12 h-[2px] bg-gold-500 mx-auto mt-6"></div>
+                <p class="mt-6 text-sm text-gray-500 font-sans font-light tracking-wide">The visionary talent behind the lens.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Director 1 -->
-                <div class="reveal-fade-up bg-gradient-to-b from-[#111] to-[#050505] border border-gold-400/20 p-8 rounded text-center group hover:border-gold-400/50 transition duration-500" style="transition-delay: 100ms;">
-                    <div class="w-24 h-24 mx-auto bg-[#0a0a0a] rounded-full border border-gold-400/30 flex items-center justify-center mb-6 group-hover:scale-105 transition duration-500">
-                        <i class="fa-solid fa-user-tie text-gold-400/50 text-3xl"></i>
+                <!-- Dummy Director 1 -->
+                <div class="group anim-staggered-item">
+                    <div class="aspect-[3/4] bg-[#111] overflow-hidden relative mb-6 border border-white/5 grayscale group-hover:grayscale-0 transition duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80"></div>
+                         <div class="absolute inset-0 flex items-center justify-center">
+                            <i class="fa-solid fa-user text-4xl text-gray-800 group-hover:text-gold-400/20 transition duration-500"></i>
+                        </div>
+                        <div class="absolute bottom-0 left-0 p-6 w-full transform translate-y-4 group-hover:translate-y-0 transition duration-500">
+                            <div class="h-[1px] w-0 bg-gold-400 mb-4 group-hover:w-full transition-all duration-700"></div>
+                            <h3 class="font-cinzel text-xl text-white uppercase tracking-wider">Director Name</h3>
+                        </div>
                     </div>
-                    <h4 class="font-cinzel text-xl font-bold text-white mb-1 group-hover:text-gold-400 transition">DIRECTOR 01</h4>
-                    <p class="text-gold-400/70 text-xs font-cinzel tracking-widest mb-4">Lead Director</p>
-                    <p class="text-gray-500 text-sm font-sans font-light">Biography and portfolio details to be announced.</p>
                 </div>
 
-                <!-- Director 2 -->
-                <div class="reveal-fade-up bg-gradient-to-b from-[#111] to-[#050505] border border-gold-400/20 p-8 rounded text-center group hover:border-gold-400/50 transition duration-500" style="transition-delay: 200ms;">
-                    <div class="w-24 h-24 mx-auto bg-[#0a0a0a] rounded-full border border-gold-400/30 flex items-center justify-center mb-6 group-hover:scale-105 transition duration-500">
-                        <i class="fa-solid fa-user-tie text-gold-400/50 text-3xl"></i>
+                <!-- Dummy Director 2 -->
+                <div class="group anim-staggered-item" style="transition-delay: 150ms;">
+                    <div class="aspect-[3/4] bg-[#111] overflow-hidden relative mb-6 border border-white/5 grayscale group-hover:grayscale-0 transition duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80"></div>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <i class="fa-solid fa-user text-4xl text-gray-800 group-hover:text-gold-400/20 transition duration-500"></i>
+                        </div>
+                        <div class="absolute bottom-0 left-0 p-6 w-full transform translate-y-4 group-hover:translate-y-0 transition duration-500">
+                            <div class="h-[1px] w-0 bg-gold-400 mb-4 group-hover:w-full transition-all duration-700"></div>
+                            <h3 class="font-cinzel text-xl text-white uppercase tracking-wider">Director Name</h3>
+                        </div>
                     </div>
-                    <h4 class="font-cinzel text-xl font-bold text-white mb-1 group-hover:text-gold-400 transition">DIRECTOR 02</h4>
-                    <p class="text-gold-400/70 text-xs font-cinzel tracking-widest mb-4">Co-Director</p>
-                    <p class="text-gray-500 text-sm font-sans font-light">Biography and portfolio details to be announced.</p>
                 </div>
 
-                <!-- Director 3 -->
-                <div class="reveal-fade-up bg-gradient-to-b from-[#111] to-[#050505] border border-gold-400/20 p-8 rounded text-center group hover:border-gold-400/50 transition duration-500" style="transition-delay: 300ms;">
-                    <div class="w-24 h-24 mx-auto bg-[#0a0a0a] rounded-full border border-gold-400/30 flex items-center justify-center mb-6 group-hover:scale-105 transition duration-500">
-                        <i class="fa-solid fa-user-tie text-gold-400/50 text-3xl"></i>
+                <!-- Dummy Director 3 -->
+                <div class="group anim-staggered-item" style="transition-delay: 300ms;">
+                    <div class="aspect-[3/4] bg-[#111] overflow-hidden relative mb-6 border border-white/5 grayscale group-hover:grayscale-0 transition duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80"></div>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <i class="fa-solid fa-user text-4xl text-gray-800 group-hover:text-gold-400/20 transition duration-500"></i>
+                        </div>
+                        <div class="absolute bottom-0 left-0 p-6 w-full transform translate-y-4 group-hover:translate-y-0 transition duration-500">
+                            <div class="h-[1px] w-0 bg-gold-400 mb-4 group-hover:w-full transition-all duration-700"></div>
+                            <h3 class="font-cinzel text-xl text-white uppercase tracking-wider">Director Name</h3>
+                        </div>
                     </div>
-                    <h4 class="font-cinzel text-xl font-bold text-white mb-1 group-hover:text-gold-400 transition">DIRECTOR 03</h4>
-                    <p class="text-gold-400/70 text-xs font-cinzel tracking-widest mb-4">Creative Director</p>
-                    <p class="text-gray-500 text-sm font-sans font-light">Biography and portfolio details to be announced.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 5. SHOWREEL -->
-    <section id="showreel" class="py-32 bg-[#050505] relative border-t border-gold-400/10 overflow-hidden">
-        <!-- Background blurred image -->
-        <div class="absolute inset-0 opacity-20 pointer-events-none">
-            <img src="/images/camera.webp" alt="Showreel Background" class="w-full h-full object-cover blur-sm">
-            <div class="absolute inset-0 bg-black/60"></div>
-        </div>
-
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 reveal-on-scroll relative z-10 text-center">
-            <span class="reveal-fade-up text-gold-400 font-cinzel text-xs tracking-[0.3em] uppercase block mb-4">Visual Library</span>
-            <h2 class="reveal-fade-up font-cinzel text-3xl md:text-5xl font-bold text-white mb-10" style="transition-delay: 100ms;">STUDIO SHOWREEL</h2>
+    <!-- SECTION: SHOWREEL -->
+    <section id="showreel" class="py-32 bg-[#030303] relative border-t border-b border-white/5">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="anim-fade-up mb-12">
+                <h2 class="font-cinzel text-2xl md:text-4xl font-bold text-white tracking-widest uppercase mb-4">Showreel</h2>
+                <p class="text-gray-500 text-sm font-sans font-light">A glimpse into our visual storytelling.</p>
+            </div>
             
-            <div class="reveal-scale relative w-full aspect-video bg-[#0a0a0a] border border-gold-400/30 rounded-lg overflow-hidden group cursor-pointer shadow-2xl shadow-gold-400/5" onclick="openModal('trailerModal')" style="transition-delay: 200ms;">
-                <img src="/images/camera.webp" alt="Play Showreel" class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition duration-700 group-hover:opacity-80">
-                <div class="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-transparent transition duration-500">
-                    <div class="w-20 h-20 rounded-full bg-gold-400 text-black flex items-center justify-center text-2xl shadow-lg group-hover:scale-110 transition-transform duration-300">
-                        <i class="fa-solid fa-play ml-1"></i>
+            <div class="relative w-full max-w-4xl mx-auto aspect-video cursor-pointer group anim-scale-up" onclick="openModal('trailerModal')">
+                <img src="images/camera.webp" alt="Showreel Thumbnail" class="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition duration-700 grayscale group-hover:grayscale-0">
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="w-20 h-20 border border-gold-400/50 rounded-full flex items-center justify-center bg-black/50 backdrop-blur-sm group-hover:bg-gold-500 group-hover:border-gold-500 transition-all duration-500">
+                        <i class="fa-solid fa-play text-gold-400 text-xl ml-2 group-hover:text-black transition"></i>
                     </div>
                 </div>
-                <div class="absolute bottom-4 left-4 right-4 flex justify-between items-center px-4 py-2 bg-black/60 backdrop-blur border border-gold-400/20 rounded">
-                    <span class="font-cinzel text-white text-sm">Seventh Frame Cinematic Reel</span>
-                    <span class="font-cinzel text-gold-400 text-xs">00:00:00:00</span>
+                <!-- Cinematic Bars -->
+                <div class="absolute top-0 left-0 w-full h-8 bg-black"></div>
+                <div class="absolute bottom-0 left-0 w-full h-8 bg-black"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: GALLERY -->
+    <section id="gallery" class="py-32 bg-[#050505] relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20 anim-fade-up">
+                <h2 class="font-cinzel text-2xl md:text-4xl font-bold text-white tracking-widest uppercase">Gallery</h2>
+                <div class="w-12 h-[2px] bg-gold-500 mx-auto mt-6"></div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="aspect-square overflow-hidden bg-[#0a0a0a] group anim-fade-up">
+                    <img src="images/projector.webp" alt="Gallery Image 1" class="w-full h-full object-cover opacity-50 group-hover:opacity-100 group-hover:scale-105 transition duration-700 grayscale group-hover:grayscale-0">
+                </div>
+                <div class="aspect-square overflow-hidden bg-[#0a0a0a] group anim-fade-up" style="transition-delay: 100ms;">
+                    <img src="images/chair.webp" alt="Gallery Image 2" class="w-full h-full object-cover opacity-50 group-hover:opacity-100 group-hover:scale-105 transition duration-700 grayscale group-hover:grayscale-0">
+                </div>
+                <div class="aspect-square overflow-hidden bg-[#0a0a0a] group anim-fade-up" style="transition-delay: 200ms;">
+                    <img src="images/camera.webp" alt="Gallery Image 3" class="w-full h-full object-cover opacity-50 group-hover:opacity-100 group-hover:scale-105 transition duration-700 grayscale group-hover:grayscale-0">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 6. GALLERY -->
-    <section id="gallery" class="py-24 bg-[#080808] relative border-t border-gold-400/10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 reveal-on-scroll">
-            <div class="text-center mb-16">
-                <span class="reveal-fade-up text-gold-400 font-cinzel text-xs tracking-[0.3em] uppercase block">Behind The Scenes</span>
-                <h2 class="reveal-fade-up font-cinzel text-3xl md:text-5xl font-bold text-white mt-2 mb-6" style="transition-delay: 100ms;">GALLERY</h2>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="reveal-clip overflow-hidden rounded group border border-transparent hover:border-gold-400/30 transition duration-500" style="transition-delay: 100ms;">
-                    <img src="/images/projector.webp" alt="Gallery Image 1" class="w-full h-64 object-cover cinematic-zoom opacity-80 group-hover:opacity-100 grayscale hover:grayscale-0">
-                </div>
-                <div class="reveal-clip overflow-hidden rounded group border border-transparent hover:border-gold-400/30 transition duration-500" style="transition-delay: 200ms;">
-                    <img src="/images/chair.webp" alt="Gallery Image 2" class="w-full h-64 object-cover cinematic-zoom opacity-80 group-hover:opacity-100 grayscale hover:grayscale-0">
-                </div>
-                <div class="reveal-clip overflow-hidden rounded group border border-transparent hover:border-gold-400/30 transition duration-500" style="transition-delay: 300ms;">
-                    <img src="/images/camera.webp" alt="Gallery Image 3" class="w-full h-64 object-cover cinematic-zoom opacity-80 group-hover:opacity-100 grayscale hover:grayscale-0">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 7. ABOUT US -->
-    <section id="about" class="py-24 bg-[#050505] border-t border-gold-400/20">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 reveal-on-scroll">
+    <!-- SECTION: ABOUT US -->
+    <section id="about" class="py-32 bg-[#080808] border-t border-white/5 relative overflow-hidden">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div>
-                    <span class="reveal-fade-up text-gold-400 font-cinzel text-xs tracking-[0.3em] uppercase block">Company Profile</span>
-                    <h2 class="reveal-fade-up font-cinzel text-3xl md:text-5xl font-bold text-white mt-2 mb-8" style="transition-delay: 100ms;">ABOUT US</h2>
-                    <p class="reveal-blur font-sans font-light text-gray-300 text-base leading-relaxed mb-6" style="transition-delay: 200ms;">
-                        Seventh Frame Pictures LLP is an independent production company dedicated to the art of modern filmmaking. We collaborate with passionate storytellers and technical craftsmen to bring compelling narratives to life.
-                    </p>
-                    <p class="reveal-blur font-sans font-light text-gray-300 text-base leading-relaxed mb-8" style="transition-delay: 300ms;">
-                        Based in Kochi, Kerala, our studio integrates traditional cinematic values with contemporary production methodologies to produce content that resonates with modern audiences.
-                    </p>
-                    <a href="#films" class="reveal-fade-up text-gold-400 font-cinzel text-sm tracking-widest hover:text-white transition uppercase inline-flex items-center" style="transition-delay: 400ms;">
-                        View our slate <i class="fa-solid fa-arrow-right ml-2 text-[10px]"></i>
-                    </a>
+                <div class="anim-slide-right relative z-10">
+                    <h2 class="font-cinzel text-2xl md:text-4xl font-bold text-white tracking-widest uppercase mb-8">About Us</h2>
+                    <div class="space-y-6 font-sans font-light text-gray-400 text-sm md:text-base leading-relaxed">
+                        <p>
+                            Seventh Frame Pictures LLP is an independent production company dedicated to the art of modern filmmaking. We collaborate with passionate storytellers and technical craftsmen to bring compelling narratives to life.
+                        </p>
+                        <p>
+                            Based in Kochi, Kerala, our studio integrates traditional cinematic values with contemporary production methodologies to produce content that resonates with modern audiences.
+                        </p>
+                    </div>
                 </div>
-                <div class="reveal-scale relative" style="transition-delay: 200ms;">
-                    <div class="absolute -inset-2 bg-gradient-to-r from-gold-500 to-transparent rounded-lg blur opacity-10"></div>
-                    <div class="relative bg-[#111] p-2 rounded-lg border border-gold-400/20">
-                        <img src="/images/chair.webp" alt="About Seventh Frame" class="w-full h-[400px] object-cover rounded grayscale hover:grayscale-0 transition duration-700">
+                <div class="anim-slide-left">
+                    <div class="aspect-[4/5] md:aspect-square relative overflow-hidden border border-white/10">
+                        <img src="images/chair.webp" alt="Director's Chair" class="w-full h-full object-cover grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition duration-1000">
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 8. PARTNER WITH US -->
-    <section id="partner" class="py-24 bg-[#080808] border-t border-gold-400/10 text-center">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 reveal-on-scroll">
-            <span class="reveal-fade-up text-gold-400 font-cinzel text-xs tracking-[0.3em] uppercase block mb-4">Collaborate</span>
-            <h2 class="reveal-fade-up font-cinzel text-3xl md:text-4xl font-bold text-white mb-8" style="transition-delay: 100ms;">PARTNER WITH US</h2>
-            <p class="reveal-blur font-sans font-light text-gray-400 mb-8" style="transition-delay: 200ms;">
-                We are actively seeking strategic alliances with studios, distributors, and creative agencies. Detailed partnership opportunities will be published soon.
+    <!-- SECTION: PARTNER WITH US -->
+    <section id="partner" class="py-32 bg-[#030303] relative border-t border-white/5 text-center">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 anim-fade-up">
+            <h2 class="font-cinzel text-2xl md:text-4xl font-bold text-white tracking-widest uppercase mb-6">Partner With Us</h2>
+            <div class="w-12 h-[2px] bg-gold-500 mx-auto mb-8"></div>
+            <p class="font-sans font-light text-gray-400 text-sm mb-10 leading-relaxed">
+                We are open to collaborations with co-producers, distributors, and creative agencies who share our vision for quality cinema. Details regarding partnership structures are currently under formulation.
             </p>
-            <a href="#contact" class="reveal-scale inline-block px-8 py-3 border border-gold-400 text-gold-400 font-cinzel text-xs tracking-widest rounded hover:bg-gold-400 hover:text-black transition duration-300" style="transition-delay: 300ms;">
-                GET IN TOUCH
+            <a href="#contact" class="inline-block px-8 py-3 border border-gold-400/50 text-gold-400 font-cinzel text-xs tracking-[0.2em] hover:bg-gold-400 hover:text-black transition duration-500 uppercase">
+                Inquire Now
             </a>
         </div>
     </section>
 
-    <!-- 9. CONTACT US -->
-    <section id="contact" class="py-24 bg-[#050505] border-t border-gold-400/20">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 reveal-on-scroll">
-            <div class="text-center mb-16">
-                <span class="reveal-fade-up text-gold-400 font-cinzel text-xs tracking-[0.3em] uppercase block">Inquiries</span>
-                <h2 class="reveal-fade-up font-cinzel text-3xl md:text-5xl font-bold text-white mt-2 mb-6" style="transition-delay: 100ms;">CONTACT US</h2>
+    <!-- SECTION: CONTACT US -->
+    <section id="contact" class="py-32 bg-[#050505] relative border-t border-white/5">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20 anim-fade-up">
+                <h2 class="font-cinzel text-2xl md:text-4xl font-bold text-white tracking-widest uppercase">Contact</h2>
+                <div class="w-12 h-[2px] bg-gold-500 mx-auto mt-6"></div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                <div class="reveal-fade-up" style="transition-delay: 100ms;">
-                    <h3 class="font-cinzel text-xl text-white mb-6">Headquarters</h3>
-                    <div class="space-y-4 font-sans font-light text-gray-400 text-sm">
-                        <p class="flex items-start">
-                            <i class="fa-solid fa-location-dot mt-1 mr-4 text-gold-400 w-4"></i>
-                            <span>Seventh Frame Pictures LLP<br>Kochi, Kerala, India<br>[Full Address Pending]</span>
-                        </p>
-                        <p class="flex items-center">
-                            <i class="fa-solid fa-envelope mr-4 text-gold-400 w-4"></i>
-                            <span>contact@placeholder.com</span>
-                        </p>
-                        <p class="flex items-center">
-                            <i class="fa-solid fa-phone mr-4 text-gold-400 w-4"></i>
-                            <span>+91 000 000 0000</span>
-                        </p>
-                    </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+                <div class="anim-slide-right">
+                    <h3 class="font-cinzel text-lg text-white tracking-widest uppercase mb-6">Headquarters</h3>
+                    <p class="font-sans text-gray-500 font-light text-sm leading-loose mb-8">
+                        Seventh Frame Pictures LLP<br>
+                        Kochi, Kerala, India<br>
+                        (Full address pending)
+                    </p>
+                    
+                    <h3 class="font-cinzel text-lg text-white tracking-widest uppercase mb-6 mt-12">General Inquiries</h3>
+                    <p class="font-sans text-gray-500 font-light text-sm italic">
+                        Contact information will be updated shortly.
+                    </p>
                 </div>
 
-                <div class="reveal-fade-up bg-[#0a0a0a] p-8 border border-gold-400/20 rounded" style="transition-delay: 200ms;">
-                    <form onsubmit="event.preventDefault();" class="space-y-4 font-sans text-sm font-light">
+                <div class="anim-slide-left">
+                    <form class="space-y-6" onsubmit="event.preventDefault();">
                         <div>
-                            <label class="block text-gray-500 mb-1">Name</label>
-                            <input type="text" class="w-full bg-[#111] border border-gray-800 rounded px-4 py-2 text-white focus:outline-none focus:border-gold-400 transition" placeholder="Your Name" disabled>
+                            <input type="text" placeholder="NAME" class="w-full bg-[#0a0a0a] border-b border-white/20 px-4 py-3 text-white font-sans font-light text-sm focus:outline-none focus:border-gold-400 transition placeholder-gray-600">
                         </div>
                         <div>
-                            <label class="block text-gray-500 mb-1">Email</label>
-                            <input type="email" class="w-full bg-[#111] border border-gray-800 rounded px-4 py-2 text-white focus:outline-none focus:border-gold-400 transition" placeholder="Your Email" disabled>
+                            <input type="email" placeholder="EMAIL" class="w-full bg-[#0a0a0a] border-b border-white/20 px-4 py-3 text-white font-sans font-light text-sm focus:outline-none focus:border-gold-400 transition placeholder-gray-600">
                         </div>
                         <div>
-                            <label class="block text-gray-500 mb-1">Message</label>
-                            <textarea class="w-full bg-[#111] border border-gray-800 rounded px-4 py-2 text-white focus:outline-none focus:border-gold-400 transition h-24 resize-none" placeholder="Message content..." disabled></textarea>
+                            <textarea placeholder="MESSAGE" rows="4" class="w-full bg-[#0a0a0a] border-b border-white/20 px-4 py-3 text-white font-sans font-light text-sm focus:outline-none focus:border-gold-400 transition placeholder-gray-600 resize-none"></textarea>
                         </div>
-                        <button disabled class="w-full py-3 bg-gold-400/20 text-gold-400 font-cinzel text-xs tracking-widest rounded cursor-not-allowed opacity-50">
-                            FORM UNAVAILABLE
+                        <button type="button" class="px-8 py-3 bg-transparent border border-white/20 text-gray-400 font-cinzel text-xs tracking-[0.2em] uppercase hover:border-gold-400 hover:text-gold-400 transition duration-500">
+                            Send Message
                         </button>
                     </form>
                 </div>
@@ -451,57 +461,33 @@
         </div>
     </section>
 
-    <!-- 10. FOOTER -->
-    <footer class="bg-[#020202] border-t border-gold-400/30 py-16 text-gray-400 text-xs font-cinzel">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-            <div>
-                <div class="flex items-center space-x-3 mb-6">
-                    <!-- Footer Logo (Left-aligned) -->
-                    <img src="/images/logo.webp" alt="Seventh Frame Logo" class="h-16 w-auto object-contain drop-shadow-md grayscale opacity-80" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div style="display: none;" class="w-12 h-12 rounded-full border border-gold-400 items-center justify-center text-gold-400 font-cinzel font-bold text-lg">SF</div>
-                </div>
-                <p class="font-sans font-light text-gray-500 text-xs leading-relaxed">
-                    Independent production house delivering striking visual narratives and professional cinematic content.
-                </p>
+    <footer class="bg-black py-16 text-center border-t border-white/10 relative">
+        <div class="max-w-4xl mx-auto px-4 anim-fade-up">
+            <img src="images/logo.webp" alt="Seventh Frame Logo" class="h-16 w-auto mx-auto mb-8 opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition duration-500 object-contain">
+            
+            <div class="flex justify-center space-x-6 mb-12">
+                <a href="#" class="text-gray-600 hover:text-gold-400 transition text-lg"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="text-gray-600 hover:text-gold-400 transition text-lg"><i class="fa-brands fa-youtube"></i></a>
+                <a href="#" class="text-gray-600 hover:text-gold-400 transition text-lg"><i class="fa-brands fa-imdb"></i></a>
             </div>
-            <div>
-                <h4 class="text-gold-400 tracking-widest mb-4 font-bold uppercase">Navigation</h4>
-                <ul class="space-y-2.5">
-                    <li><a href="#films" class="hover:text-gold-300 transition">Our Films</a></li>
-                    <li><a href="#directors" class="hover:text-gold-300 transition">Directors</a></li>
-                    <li><a href="#showreel" class="hover:text-gold-300 transition">Showreel</a></li>
-                    <li><a href="#about" class="hover:text-gold-300 transition">About Us</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="text-gold-400 tracking-widest mb-4 font-bold uppercase">Connect</h4>
-                <p class="text-gray-500 mb-4 leading-relaxed font-sans font-light">
-                    Kochi, Kerala, India
-                </p>
-                <div class="flex space-x-4 text-gold-400 text-lg">
-                    <a href="#" class="hover:text-white transition" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
-                    <a href="#" class="hover:text-white transition" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" class="hover:text-white transition" aria-label="Twitter (X)"><i class="fa-brands fa-x-twitter"></i></a>
-                    <a href="#" class="hover:text-white transition" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 border-t border-gray-900 text-center text-gray-600 text-[10px] tracking-widest uppercase flex flex-col md:flex-row justify-between items-center gap-4">
-            <span>&copy; 2026 Seventh Frame Pictures LLP. All Rights Reserved.</span>
-            <span>DESIGNED & POWERED BY <a href="#" target="_blank" rel="noopener noreferrer" class="text-gold-400 hover:text-white transition">SPARKLANCE SOLUTIONS</a></span>
+            
+            <p class="font-cinzel text-[9px] tracking-[0.3em] text-gray-600 uppercase">
+                &copy; 2026 Seventh Frame Pictures LLP. All Rights Reserved.
+            </p>
         </div>
     </footer>
 
     <!-- Video Modal -->
     <div id="trailerModal" class="fixed inset-0 z-50 hidden bg-black/95 backdrop-blur-md flex items-center justify-center p-4 transition-opacity">
-        <div class="relative bg-[#050505] border border-gold-400/50 rounded-lg max-w-4xl w-full p-2 text-center shadow-2xl">
-            <button onclick="closeModal('trailerModal')" class="absolute -top-10 right-0 text-gold-400 hover:text-white text-2xl font-cinzel transition">✕</button>
-            <div class="aspect-video bg-black rounded flex items-center justify-center relative overflow-hidden group w-full">
-                <!-- Using a lightweight open-source cinematic video for the demo -->
-                <video id="showreelVideo" class="w-full h-full object-cover" controls preload="none" poster="/images/camera.webp">
-                    <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+        <div class="relative max-w-5xl w-full">
+            <button onclick="closeModal('trailerModal')" class="absolute -top-12 right-0 text-gray-500 hover:text-gold-400 text-2xl transition">✕</button>
+            <div class="aspect-video bg-black border border-white/10 relative flex items-center justify-center group overflow-hidden">
+                <!-- Fallback copyright-free video via HTML5 video tag or embedded iframe -->
+                <!-- For this placeholder, we use an iframe pointing to a generic copyright-free cinematic nature clip on YouTube, muted, or just a stylized placeholder -->
+                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                    <i class="fa-solid fa-film text-4xl text-gray-700 mb-4"></i>
+                    <p class="font-cinzel text-gray-500 tracking-widest text-sm uppercase">Showreel Loading...</p>
+                </div>
             </div>
         </div>
     </div>
