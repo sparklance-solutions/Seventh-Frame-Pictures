@@ -1,661 +1,442 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sample Selection | Independent Film Production</title>
+    <title>SEVENTH FRAME PICTURES | Cinematic Excellence</title>
     
-    <!-- Google Fonts: Cinzel (Heading), Inter (Sans) -->
+    <!-- Tailwind CSS CDN & Config -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            400: '#d4af37',
+                            500: '#b89228',
+                            600: '#98731e',
+                        },
+                        darkBg: '#050505',
+                        cardBg: '#0f0f0f',
+                    },
+                    fontFamily: {
+                        cinzel: ['"Cinzel"', 'serif'],
+                        sans: ['"Inter"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Inter:wght@300..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     
-    <style>
-        /* ==========================================================================
-           CORE VARIABLES & BASE STYLES
-           ========================================================================== */
-        :root {
-            --bg-main: #050505;
-            --text-main: #d4af37; /* Gold */
-            --border-color: rgba(212, 175, 55, 0.3);
-            --border-strong: #d4af37;
-            --accent-red: #D33F3F;
-            --font-heading: 'Cinzel', serif;
-            --font-sans: 'Inter', sans-serif;
-            --ease-snap: cubic-bezier(0.1, 0.9, 0.2, 1);
-        }
-
-        body {
-            background-color: var(--bg-main);
-            color: #f1f1f1;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-            font-family: var(--font-sans);
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-main); }
-        ::-webkit-scrollbar-thumb { background: #77571a; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--text-main); }
-
-        .gold-gradient-text {
-            background: linear-gradient(135deg, #f5edc8 0%, #d4af37 50%, #98731e 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .gold-border-glow {
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
-        }
-        .gold-border-glow:hover {
-            border-color: var(--text-main);
-            box-shadow: 0 0 25px rgba(212, 175, 55, 0.15);
-        }
-
-        /* Subtle background grain for the main website */
-        .website-grain {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: -1;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.12'/%3E%3C/svg%3E");
-            opacity: 0.1; /* Reduced to avoid gray wash */
-        }
-
-        /* ==========================================================================
-           CINEMATIC PRELOADER CONTAINER & FILM MARKINGS
-           ========================================================================== */
-        .preloader {
-            position: fixed;
-            inset: 0;
-            background-color: transparent; /* Let the shutter provide the solid black background */
-            z-index: 99999; /* Absolute top */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
-            transition: border-color 0.3s ease; /* Fade border smoothly upon exit */
-        }
-
-        .preloader.exiting {
-            border-color: transparent;
-        }
-
-        /* Extremely subtle film grain to avoid washing out the black */
-        .film-grain {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            z-index: 2; /* Layer correctly within preloader */
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-            opacity: 0.05; 
-            transition: opacity 0.2s ease;
-        }
-
-        .pl-borders {
-            position: absolute; inset: 15px; border: 1px solid var(--border-color); pointer-events: none; z-index: 3;
-            transition: opacity 0.2s ease;
-        }
-        .pl-reg-mark {
-            position: absolute; width: 15px; height: 15px; border: 2px solid var(--border-strong);
-        }
-        .pl-reg-tl { top: -2px; left: -2px; border-right: none; border-bottom: none; }
-        .pl-reg-tr { top: -2px; right: -2px; border-left: none; border-bottom: none; }
-        .pl-reg-bl { bottom: -2px; left: -2px; border-right: none; border-top: none; }
-        .pl-reg-br { bottom: -2px; right: -2px; border-left: none; border-top: none; }
-
-        /* CRITICAL FIX: 
-          All stages must be strictly hidden initially using both opacity and visibility 
-        */
-        .pl-stage {
-            position: absolute; 
-            inset: 0; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            opacity: 0; 
-            visibility: hidden; 
-            pointer-events: none;
-            transition: opacity 0.1s ease;
-            z-index: 4;
-        }
-
-        .pl-stage.active { 
-            opacity: 1; 
-            visibility: visible; 
-            pointer-events: auto;
-        }
-
-        /* Fix: Hide the stages gracefully under the flash so they don't hover over the website when shutter opens */
-        .preloader.exiting .pl-stage,
-        .preloader.exiting .pl-borders,
-        .preloader.exiting .film-grain {
-            opacity: 0 !important;
-            visibility: hidden;
-        }
-
-        /* Mechanical Jitter */
-        .frame-jump { animation: mechanicalJump 1s steps(1); }
-        @keyframes mechanicalJump { 
-            0% { transform: translateY(0); } 
-            5% { transform: translateY(-1.5vh); } 
-            10% { transform: translateY(0); } 
-        }
-
-        /* ==========================================================================
-           1. PRELOADER COUNTDOWN (3, 2, 1)
-           ========================================================================== */
-        .pl-cd-frame {
-            position: relative; width: 50vmin; height: 50vmin; max-width: 350px; max-height: 350px; 
-            display: flex; align-items: center; justify-content: center;
-        }
-        .pl-cd-ring {
-            position: absolute; width: 100%; height: 100%; 
-            border: 3px dashed var(--text-main); border-radius: 50%; opacity: 0.8;
-        }
-        .pl-cd-ring-inner {
-            position: absolute; width: 85%; height: 85%; 
-            border: 1px solid var(--border-color); border-radius: 50%;
-        }
-        .pl-cd-cross-h { position: absolute; width: 110%; height: 1px; background: var(--text-main); opacity: 0.5; }
-        .pl-cd-cross-v { position: absolute; width: 1px; height: 110%; background: var(--text-main); opacity: 0.5; }
-        .pl-cd-num {
-            font-family: var(--font-heading); font-size: 20vmin; font-weight: 700; line-height: 1; 
-            z-index: 2; color: var(--text-main); background: #050505; padding: 0 40px;
-            text-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
-        }
-        .pl-cd-meta {
-            position: absolute; font-family: var(--font-heading); font-size: 0.7rem; font-weight: 600; 
-            letter-spacing: 0.3em; color: var(--text-main); text-transform: uppercase; 
-            background: #050505; padding: 2px 10px; opacity: 0.7;
-        }
-
-        /* ==========================================================================
-           2. LIGHTS, CAMERA, ACTION SCENES
-           ========================================================================== */
-        .pl-comp { display: flex; flex-direction: column; align-items: center; gap: 50px; position: relative; }
-        .pl-word {
-            font-family: var(--font-heading); font-size: 10vmin; font-weight: 700; letter-spacing: 0.2em; 
-            text-transform: uppercase; z-index: 2; position: relative; line-height: 1;
-            color: var(--text-main); text-shadow: 0 0 20px rgba(212, 175, 55, 0.4); background: #050505; padding: 0 20px;
-        }
-
-        /* SCENE: LIGHTS */
-        .pl-fresnel {
-            position: relative; width: 140px; height: 120px; border: 3px solid var(--text-main); 
-            border-radius: 10px 10px 0 0; border-bottom: none; display: flex; justify-content: center; align-items: flex-end;
-            background: #050505; z-index: 2;
-        }
-        .pl-fresnel-lens {
-            width: 80%; height: 40px; border: 3px solid var(--text-main); border-radius: 50% 50% 0 0; 
-            border-bottom: none; position: relative; background: #050505; z-index: 2;
-        }
-        .pl-fresnel-stand { position: absolute; bottom: -50px; width: 6px; height: 50px; background: var(--text-main); }
-        .pl-fresnel-beam {
-            position: absolute; top: -200px; left: -140px; right: -140px; height: 200px;
-            background: linear-gradient(to top, rgba(212,175,55,0.01), rgba(212,175,55,0.15));
-            clip-path: polygon(50% 100%, 0 0, 100% 0);
-            transform-origin: bottom center; transform: scaleY(0); opacity: 0; z-index: 1;
-        }
-        .pl-stage.active .pl-fresnel-beam { animation: beamOn 0.1s forwards 0.2s; }
-        @keyframes beamOn { to { transform: scaleY(1); opacity: 1; } }
-
-        /* SCENE: CAMERA */
-        .pl-cinema-cam { position: relative; width: 180px; height: 100px; border: 3px solid var(--text-main); display: flex; align-items: center; background: #050505; z-index: 2;}
-        .pl-cam-lens { position: absolute; right: -50px; width: 50px; height: 70px; border: 3px solid var(--text-main); border-left: none; background: #050505; }
-        .pl-cam-lens::after { content: ''; position: absolute; right: 10px; top: 10px; bottom: 10px; width: 3px; background: var(--text-main); }
-        .pl-cam-mag-1 { position: absolute; top: -45px; left: 20px; width: 60px; height: 60px; border: 3px solid var(--text-main); border-radius: 50%; background: #050505; }
-        .pl-cam-mag-2 { position: absolute; top: -45px; left: 90px; width: 60px; height: 60px; border: 3px solid var(--text-main); border-radius: 50%; background: #050505; }
-        .pl-cam-handle { position: absolute; top: -20px; right: 20px; width: 40px; height: 10px; border: 3px solid var(--text-main); border-bottom: none; }
-        .pl-cam-rec { position: absolute; bottom: 15px; left: 15px; width: 12px; height: 12px; background: var(--accent-red); border-radius: 50%; opacity: 0; }
-        .pl-stage.active .pl-cam-rec { animation: recBlink 0.4s infinite steps(2) 0.1s; }
-        @keyframes recBlink { 50% { opacity: 1; } }
-
-        /* SCENE: ACTION */
-        .pl-clapper { position: relative; width: 220px; height: 160px; border: 3px solid var(--text-main); display: flex; flex-direction: column; background: #050505; z-index: 2; }
-        .pl-clapper-top { 
-            width: 100%; height: 35px; border-bottom: 3px solid var(--text-main); 
-            background: repeating-linear-gradient(45deg, var(--text-main), var(--text-main) 15px, var(--bg-main) 15px, var(--bg-main) 30px); 
-            transform-origin: bottom left; transform: rotate(-25deg); transition: transform 0.1s var(--ease-snap); 
-        }
-        .pl-clapper-board { flex: 1; padding: 15px; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 10px; }
-        .pl-clapper-line { border-bottom: 2px solid var(--text-main); width: 100%; align-self: end; opacity: 0.6; }
-        .pl-stage.active .pl-clapper-top { animation: clapClose 0.1s forwards 0.8s; }
-        @keyframes clapClose { to { transform: rotate(0); } }
-
-        /* ==========================================================================
-           3. FINAL FILM FLASH TRANSITION
-           ========================================================================== */
-        .pl-flash { 
-            position: absolute; 
-            inset: 0; 
-            background: #FFFFFF; 
-            opacity: 0; 
-            pointer-events: none; 
-            z-index: 5; /* Flash blankets everything */
-            visibility: hidden; 
-        }
-        .pl-flash.flash-trigger { 
-            visibility: visible; 
-            animation: pureWhiteFlash 0.3s steps(2) forwards; 
-        }
-        @keyframes pureWhiteFlash { 
-            0% { opacity: 0; } 
-            20% { opacity: 1; } 
-            100% { opacity: 0; } 
-        }
-
-        /* Sharp Shutter Exit */
-        .pl-shutter { 
-            position: absolute; 
-            inset: 0; 
-            display: flex; 
-            pointer-events: none; 
-            z-index: 1; /* Fix: Placed behind the stages to provide the solid black background */
-        }
-        .pl-shutter-panel { 
-            flex: 1; 
-            background: #050505; 
-            transition: transform 0.6s cubic-bezier(0.86, 0, 0.07, 1); 
-        }
-        .pl-shutter-left { transform-origin: left; transform: scaleX(1); }
-        .pl-shutter-right { transform-origin: right; transform: scaleX(1); }
-        .preloader.exiting .pl-shutter-panel { transform: scaleX(0); }
-
-        /* ==========================================================================
-           WEBSITE COMPONENT STYLES
-           ========================================================================== */
-        .reveal-on-scroll {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal-on-scroll.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Accessibility: Respect user's motion preferences */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-                scroll-behavior: auto !important;
-            }
-            .pl-fresnel-beam { transform: scaleY(1); opacity: 1; }
-            .pl-clapper-top { transform: rotate(0); }
-            .reveal-on-scroll { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ==========================================================================
-           PAGE SPECIFIC STYLES
-           ========================================================================== */
-        header {
-            padding: 40px 5%;
-            text-align: center;
-            border-bottom: 1px solid var(--border-color);
-        }
-        header h1 {
-            font-family: var(--font-heading);
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            margin: 0 0 10px 0;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-        }
-        header p {
-            color: rgba(241, 241, 241, 0.7);
-            font-size: 1.1rem;
-            margin: 0;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        main {
-            flex: 1;
-            padding: 60px 5%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .sample-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            width: 100%;
-            max-width: 1000px;
-            margin-top: 40px;
-        }
-
-        .sample-card {
-            background-color: rgba(5, 5, 5, 0.8);
-            padding: 40px 30px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .sample-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--text-main), transparent);
-            opacity: 0.5;
-        }
-
-        .sample-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: var(--text-main);
-        }
-
-        .sample-card h2 {
-            font-family: var(--font-heading);
-            font-size: 1.8rem;
-            margin: 0 0 15px 0;
-            letter-spacing: 0.05em;
-        }
-
-        .sample-card p {
-            color: rgba(241, 241, 241, 0.7);
-            line-height: 1.6;
-            margin: 0 0 30px 0;
-            flex-grow: 1;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background-color: transparent;
-            color: var(--text-main);
-            text-decoration: none;
-            font-family: var(--font-heading);
-            font-size: 1rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            border: 1px solid var(--text-main);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background-color: var(--text-main);
-            transition: left 0.3s ease;
-            z-index: -1;
-        }
-
-        .btn:hover {
-            color: var(--bg-main);
-        }
-
-        .btn:hover::before {
-            left: 0;
-        }
-
-        footer {
-            padding: 30px 5%;
-            text-align: center;
-            border-top: 1px solid var(--border-color);
-            font-size: 0.9rem;
-            color: rgba(241, 241, 241, 0.5);
-        }
-
-    </style>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="bg-[#050505] text-gray-100 selection:bg-gold-500 selection:text-black">
 
-    <!-- Website Grain -->
-    <div class="website-grain"></div>
-
-    <!-- Preloader -->
+    <!-- ==========================================================================
+         CINEMATIC PRELOADER
+         ========================================================================== -->
     <div id="preloader" class="preloader">
-        <!-- Film Grain specifically for preloader -->
         <div class="film-grain"></div>
         
-        <!-- Shutter Panels (Provides solid black background) -->
-        <div class="pl-shutter">
-            <div class="pl-shutter-panel pl-shutter-left"></div>
-            <div class="pl-shutter-panel pl-shutter-right"></div>
-        </div>
-
-        <!-- Borders and Registration Marks -->
+        <!-- Registration Marks -->
         <div class="pl-borders">
-            <div class="pl-reg-mark pl-reg-tl"></div>
-            <div class="pl-reg-mark pl-reg-tr"></div>
-            <div class="pl-reg-mark pl-reg-bl"></div>
-            <div class="pl-reg-mark pl-reg-br"></div>
+            <div class="pl-reg-mark pl-reg-tl"></div><div class="pl-reg-mark pl-reg-tr"></div>
+            <div class="pl-reg-mark pl-reg-bl"></div><div class="pl-reg-mark pl-reg-br"></div>
         </div>
-
-        <!-- Stage 3 (Countdown) -->
-        <div class="pl-stage frame-jump" id="stage-3">
+        
+        <!-- STAGE: 3 -->
+        <!-- NOTE: No active classes are set in HTML. JS controls everything. -->
+        <div class="pl-stage" id="stage-3">
             <div class="pl-cd-frame">
-                <div class="pl-cd-ring"></div>
-                <div class="pl-cd-ring-inner"></div>
-                <div class="pl-cd-cross-h"></div>
-                <div class="pl-cd-cross-v"></div>
+                <div class="pl-cd-ring"></div><div class="pl-cd-ring-inner"></div>
+                <div class="pl-cd-cross-h"></div><div class="pl-cd-cross-v"></div>
                 <span class="pl-cd-num">3</span>
-                <span class="pl-cd-meta" style="top: -15px; left: 50%; transform: translateX(-50%);">Sync</span>
-                <span class="pl-cd-meta" style="bottom: -15px; left: 50%; transform: translateX(-50%);">Frame</span>
+                <span class="pl-cd-meta" style="top: 10%;">SEVENTH FRAME</span>
             </div>
         </div>
-
-        <!-- Stage 2 (Countdown) -->
-        <div class="pl-stage frame-jump" id="stage-2">
+        
+        <!-- STAGE: 2 -->
+        <div class="pl-stage" id="stage-2">
             <div class="pl-cd-frame">
-                <div class="pl-cd-ring"></div>
-                <div class="pl-cd-ring-inner"></div>
-                <div class="pl-cd-cross-h"></div>
-                <div class="pl-cd-cross-v"></div>
+                <div class="pl-cd-ring" style="transform: rotate(45deg);"></div><div class="pl-cd-ring-inner"></div>
+                <div class="pl-cd-cross-h" style="top: 48%;"></div><div class="pl-cd-cross-v"></div>
                 <span class="pl-cd-num">2</span>
-                <span class="pl-cd-meta" style="top: -15px; left: 50%; transform: translateX(-50%);">Sync</span>
-                <span class="pl-cd-meta" style="bottom: -15px; left: 50%; transform: translateX(-50%);">Frame</span>
+                <span class="pl-cd-meta" style="bottom: 10%;">PICTURES</span>
             </div>
         </div>
-
-        <!-- Stage 1 (Countdown) -->
-        <div class="pl-stage frame-jump" id="stage-1">
+        
+        <!-- STAGE: 1 -->
+        <div class="pl-stage" id="stage-1">
             <div class="pl-cd-frame">
-                <div class="pl-cd-ring"></div>
-                <div class="pl-cd-ring-inner"></div>
-                <div class="pl-cd-cross-h"></div>
-                <div class="pl-cd-cross-v"></div>
+                <div class="pl-cd-ring" style="transform: rotate(90deg);"></div><div class="pl-cd-ring-inner"></div>
+                <div class="pl-cd-cross-h"></div><div class="pl-cd-cross-v" style="left: 52%;"></div>
                 <span class="pl-cd-num">1</span>
-                <span class="pl-cd-meta" style="top: -15px; left: 50%; transform: translateX(-50%);">Sync</span>
-                <span class="pl-cd-meta" style="bottom: -15px; left: 50%; transform: translateX(-50%);">Frame</span>
+                <span class="pl-cd-meta" style="left: 10%; transform: rotate(-90deg);">SCENE 001</span>
             </div>
         </div>
 
-        <!-- Stage: LIGHTS -->
-        <div class="pl-stage frame-jump" id="stage-lights">
+        <!-- STAGE: LIGHTS -->
+        <div class="pl-stage" id="stage-lights">
             <div class="pl-comp">
                 <div class="pl-fresnel">
                     <div class="pl-fresnel-lens"></div>
                     <div class="pl-fresnel-stand"></div>
                     <div class="pl-fresnel-beam"></div>
                 </div>
-                <span class="pl-word">Lights</span>
+                <span class="pl-word">LIGHTS</span>
             </div>
         </div>
 
-        <!-- Stage: CAMERA -->
-        <div class="pl-stage frame-jump" id="stage-camera">
+        <!-- STAGE: CAMERA -->
+        <div class="pl-stage" id="stage-camera">
             <div class="pl-comp">
                 <div class="pl-cinema-cam">
+                    <div class="pl-cam-lens"></div>
                     <div class="pl-cam-mag-1"></div>
                     <div class="pl-cam-mag-2"></div>
-                    <div class="pl-cam-lens"></div>
                     <div class="pl-cam-handle"></div>
                     <div class="pl-cam-rec"></div>
                 </div>
-                <span class="pl-word">Camera</span>
+                <span class="pl-word">CAMERA</span>
             </div>
         </div>
 
-        <!-- Stage: ACTION -->
-        <div class="pl-stage frame-jump" id="stage-action">
+        <!-- STAGE: ACTION -->
+        <div class="pl-stage" id="stage-action">
             <div class="pl-comp">
                 <div class="pl-clapper">
                     <div class="pl-clapper-top"></div>
                     <div class="pl-clapper-board">
-                        <div class="pl-clapper-line"></div>
-                        <div class="pl-clapper-line"></div>
-                        <div class="pl-clapper-line"></div>
-                        <div class="pl-clapper-line"></div>
+                        <div class="pl-clapper-line"></div><div class="pl-clapper-line"></div>
+                        <div class="pl-clapper-line" style="grid-column: span 2;"></div>
                     </div>
                 </div>
-                <span class="pl-word">Action</span>
+                <span class="pl-word">ACTION</span>
             </div>
         </div>
-
-        <!-- Flash Effect -->
+        
+        <!-- FILM FLASH TRANSITION -->
         <div class="pl-flash" id="pl-flash"></div>
+        
+        <!-- EXIT SHUTTER -->
+        <div class="pl-shutter">
+            <div class="pl-shutter-panel pl-shutter-left"></div>
+            <div class="pl-shutter-panel pl-shutter-right"></div>
+        </div>
     </div>
+    <!-- ========================================================================== -->
 
-    <!-- Main Content -->
-    <header class="reveal-on-scroll">
-        <h1 class="gold-gradient-text">Samples Ready</h1>
-        <p>We have successfully uploaded the requested samples. Please review the available varieties below.</p>
+    <!-- Website Film Grain -->
+    <div class="website-grain"></div>
+
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-40 bg-[#050505]/85 backdrop-blur-md border-b border-gold-400/20 transition-all duration-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="#hero" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 rounded-full border border-gold-400 flex items-center justify-center text-gold-400 font-cinzel font-bold text-base group-hover:bg-gold-400 group-hover:text-black transition duration-300 shadow-lg shadow-gold-400/10">
+                    SF
+                </div>
+                <div>
+                    <span class="font-cinzel text-base md:text-lg font-bold tracking-widest gold-gradient-text block">SEVENTH FRAME</span>
+                    <span class="text-[8px] tracking-[0.3em] text-gray-400 uppercase block">PICTURES LLP.</span>
+                </div>
+            </a>
+
+            <nav class="hidden md:flex items-center space-x-8 font-cinzel text-xs tracking-[0.2em] text-gray-300">
+                <a href="#hero" class="hover:text-gold-400 transition">HOME</a>
+                <a href="#movies" class="hover:text-gold-400 transition">PRODUCTIONS</a>
+                <a href="#divisions" class="hover:text-gold-400 transition">DIVISIONS</a>
+                <a href="#videos" class="hover:text-gold-400 transition">SHOWREEL</a>
+                <a href="#about" class="hover:text-gold-400 transition">ABOUT</a>
+            </nav>
+
+            <div class="hidden lg:flex items-center space-x-4">
+                <button onclick="openModal('trailerModal')" class="px-5 py-2 border border-gold-400 text-gold-400 font-cinzel text-xs tracking-widest rounded hover:bg-gold-400 hover:text-black transition duration-300 shadow-sm">
+                    <i class="fa-solid fa-play mr-2 text-[10px]"></i> SHOWREEL
+                </button>
+            </div>
+
+            <button onclick="toggleMobileMenu()" class="md:hidden text-gold-400 text-xl focus:outline-none p-2">
+                <i class="fa-solid fa-bars" id="menu-icon"></i>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-[#0a0a0a] border-b border-gold-400/20 px-6 py-6 space-y-4 font-cinzel text-xs tracking-[0.2em]">
+            <a href="#hero" onclick="toggleMobileMenu()" class="block text-gray-300 hover:text-gold-400">HOME</a>
+            <a href="#movies" onclick="toggleMobileMenu()" class="block text-gray-300 hover:text-gold-400">PRODUCTIONS</a>
+            <a href="#divisions" onclick="toggleMobileMenu()" class="block text-gray-300 hover:text-gold-400">DIVISIONS</a>
+            <a href="#videos" onclick="toggleMobileMenu()" class="block text-gray-300 hover:text-gold-400">SHOWREEL</a>
+            <a href="#about" onclick="toggleMobileMenu()" class="block text-gray-300 hover:text-gold-400">ABOUT</a>
+        </div>
     </header>
 
-    <main>
-        <div class="sample-grid">
-            
-            <!-- Light Sample Card -->
-            <div class="sample-card gold-border-glow reveal-on-scroll" style="transition-delay: 0.1s;">
-                <div class="sample-icon">☼</div>
-                <h2 class="gold-gradient-text">Light Theme</h2>
-                <p>Experience the cinematic narrative in a bright, ethereal atmosphere. This sample utilizes an ivory and soft secondary palette, emphasizing clarity and an editorial feel while maintaining the core typography and animations.</p>
-                <a href="/light" class="btn">View Light Sample</a>
+    <section id="hero" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <div class="hero-slide absolute inset-0 transition-opacity duration-1000 opacity-100" style="background-image: url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=1920&auto=format&fit=crop'); background-size: cover; background-position: center;">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-[#050505]/40"></div>
             </div>
-
-            <!-- Dark Sample Card -->
-            <div class="sample-card gold-border-glow reveal-on-scroll" style="transition-delay: 0.2s;">
-                <div class="sample-icon">☾</div>
-                <h2 class="gold-gradient-text">Dark Theme</h2>
-                <p>Immerse yourself in a moody, high-contrast environment. This sample leans heavily into deep blacks and muted metallic accents, providing a stark, dramatic backdrop perfect for intense visual storytelling.</p>
-                <a href="/dark" class="btn">View Dark Sample</a>
+            <div class="hero-slide absolute inset-0 transition-opacity duration-1000 opacity-0" style="background-image: url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1920&auto=format&fit=crop'); background-size: cover; background-position: center;">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-[#050505]/40"></div>
             </div>
-
         </div>
-    </main>
 
-    <footer class="reveal-on-scroll" style="transition-delay: 0.3s;">
-        <p>&copy; 2026 Independent Film Production. All rights reserved.</p>
+        <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center reveal-on-scroll active">
+            <div class="inline-block px-4 py-1.5 border border-gold-400/50 rounded-full bg-gold-400/10 text-gold-300 font-cinzel text-xs tracking-[0.3em] uppercase mb-6 backdrop-blur-sm shadow-lg shadow-gold-400/10">
+                ✦ INDEPENDENT CINEMATIC PRODUCTIONS ✦
+            </div>
+            <h1 class="font-cinzel text-4xl sm:text-6xl md:text-7xl font-black tracking-wider text-white mb-6 uppercase drop-shadow-2xl">
+                SEVENTH FRAME <span class="gold-gradient-text block mt-2">PICTURES</span>
+            </h1>
+            <p class="font-sans font-light text-gray-300 text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+                Dedicated to crafting visually striking narratives and high-quality motion pictures for the modern cinematic landscape.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#movies" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-gold-600 to-gold-400 text-black font-cinzel font-bold text-xs tracking-[0.25em] rounded shadow-xl hover:brightness-110 transition duration-300">
+                    VIEW SLATE
+                </a>
+                <button onclick="openModal('trailerModal')" class="w-full sm:w-auto px-8 py-4 border border-gold-400/60 text-gold-300 font-cinzel font-semibold text-xs tracking-[0.25em] rounded hover:bg-gold-400/10 transition duration-300">
+                    <i class="fa-solid fa-play mr-2"></i> SHOWREEL
+                </button>
+            </div>
+
+            <div class="flex justify-center space-x-3 mt-16">
+                <button onclick="setHeroSlide(0)" class="hero-dot w-3 h-3 rounded-full bg-gold-400 transition"></button>
+                <button onclick="setHeroSlide(1)" class="hero-dot w-3 h-3 rounded-full bg-gray-600 transition"></button>
+            </div>
+        </div>
+    </section>
+
+    <section id="movies" class="py-24 bg-[#080808] relative">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 reveal-on-scroll">
+            <div class="text-center mb-16 border-b border-gold-400/20 pb-10">
+                <span class="text-gold-400 font-cinzel text-xs tracking-[0.3em] uppercase">Current Slate</span>
+                <h2 class="font-cinzel text-3xl md:text-5xl font-bold text-white mt-2">PRODUCTION PROJECTS</h2>
+            </div>
+
+            <!-- Movies Grid (Exactly 2 items) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                
+                <!-- Entry 1 -->
+                <div class="group relative bg-[#0f0f0f] rounded-lg overflow-hidden border border-gold-400/20 gold-border-glow transition-all duration-500">
+                    <div class="relative h-[480px] overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=800&auto=format&fit=crop" alt="Production No. 1" class="w-full h-full object-cover group-hover:scale-110 transition duration-700 opacity-80 group-hover:opacity-100">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-transparent opacity-90"></div>
+                        <div class="absolute top-4 right-4 bg-black/70 backdrop-blur-md border border-gold-400/50 text-gold-300 text-[10px] font-cinzel px-2.5 py-1 rounded">
+                            IN DEVELOPMENT
+                        </div>
+                    </div>
+                    <div class="p-8 relative -mt-20 bg-gradient-to-t from-[#0f0f0f] via-[#0f0f0f] to-transparent">
+                        <div class="text-xs text-gold-400 font-cinzel tracking-widest mb-2">Feature Film</div>
+                        <h3 class="font-cinzel text-2xl font-bold text-white mb-3 group-hover:text-gold-400 transition">PRODUCTION NO. 1</h3>
+                        <p class="text-gray-400 text-sm mb-6 font-sans font-light">Currently in pre-production. Principal photography is scheduled to commence shortly.</p>
+                        <button class="w-full py-3 border border-gold-400/60 text-gold-300 font-cinzel text-xs tracking-widest rounded hover:bg-gold-400 hover:text-black transition duration-300">
+                            DETAILS PENDING
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Entry 2 -->
+                <div class="group relative bg-[#0f0f0f] rounded-lg overflow-hidden border border-gold-400/20 gold-border-glow transition-all duration-500">
+                    <div class="relative h-[480px] overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop" alt="Production No. 2" class="w-full h-full object-cover group-hover:scale-110 transition duration-700 opacity-80 group-hover:opacity-100">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-transparent opacity-90"></div>
+                        <div class="absolute top-4 right-4 bg-black/70 backdrop-blur-md border border-gold-400/50 text-gold-300 text-[10px] font-cinzel px-2.5 py-1 rounded">
+                            EARLY STAGES
+                        </div>
+                    </div>
+                    <div class="p-8 relative -mt-20 bg-gradient-to-t from-[#0f0f0f] via-[#0f0f0f] to-transparent">
+                        <div class="text-xs text-gold-400 font-cinzel tracking-widest mb-2">Documentary Feature</div>
+                        <h3 class="font-cinzel text-2xl font-bold text-white mb-3 group-hover:text-gold-400 transition">PRODUCTION NO. 2</h3>
+                        <p class="text-gray-400 text-sm mb-6 font-sans font-light">Scriptment and research phase ongoing. Further project details will be announced soon.</p>
+                        <button class="w-full py-3 border border-gold-400/60 text-gold-300 font-cinzel text-xs tracking-widest rounded hover:bg-gold-400 hover:text-black transition duration-300">
+                            DETAILS PENDING
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="divisions" class="py-24 bg-[#050505] border-t border-b border-gold-400/20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 reveal-on-scroll">
+            <div class="text-center mb-16">
+                <span class="text-gold-400 font-cinzel text-xs tracking-[0.3em] uppercase">Enterprise</span>
+                <h2 class="font-cinzel text-3xl md:text-5xl font-bold text-white mt-2">OUR DIVISIONS</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Division 1 -->
+                <div class="bg-[#0f0f0f] p-8 rounded-lg border border-gold-400/30 text-center group hover:border-gold-400 transition duration-500">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-gold-400/10 border border-gold-400 flex items-center justify-center text-gold-400 text-2xl mb-6 font-cinzel group-hover:bg-gold-400 group-hover:text-black transition">
+                        🎬
+                    </div>
+                    <h3 class="font-cinzel text-xl font-bold text-white mb-3">SF STUDIOS</h3>
+                    <p class="text-gray-400 text-sm font-light leading-relaxed mb-6">
+                        The core motion picture production wing focused on developing high-quality theatrical releases and digital features.
+                    </p>
+                </div>
+
+                <!-- Division 2 -->
+                <div class="bg-[#0f0f0f] p-8 rounded-lg border border-gold-400/30 text-center group hover:border-gold-400 transition duration-500">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-gold-400/10 border border-gold-400 flex items-center justify-center text-gold-400 text-2xl mb-6 font-cinzel group-hover:bg-gold-400 group-hover:text-black transition">
+                        ✨
+                    </div>
+                    <h3 class="font-cinzel text-xl font-bold text-white mb-3">SF POST & VFX</h3>
+                    <p class="text-gray-400 text-sm font-light leading-relaxed mb-6">
+                        In-house post-production facilities ensuring seamless visual effects, color grading, and final delivery mastering.
+                    </p>
+                </div>
+
+                <!-- Division 3 -->
+                <div class="bg-[#0f0f0f] p-8 rounded-lg border border-gold-400/30 text-center group hover:border-gold-400 transition duration-500">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-gold-400/10 border border-gold-400 flex items-center justify-center text-gold-400 text-2xl mb-6 font-cinzel group-hover:bg-gold-400 group-hover:text-black transition">
+                        🎵
+                    </div>
+                    <h3 class="font-cinzel text-xl font-bold text-white mb-3">SF SOUND</h3>
+                    <p class="text-gray-400 text-sm font-light leading-relaxed mb-6">
+                        Dedicated audio division managing original scores, sound design, and comprehensive acoustic mixing.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="videos" class="py-24 bg-[#080808]">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 reveal-on-scroll">
+            <div class="text-center mb-16">
+                <span class="text-gold-400 font-cinzel text-xs tracking-[0.3em] uppercase">Visual Library</span>
+                <h2 class="font-cinzel text-3xl md:text-5xl font-bold text-white mt-2">SHOWREEL & MEDIA</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Video Item 1 -->
+                <div class="bg-[#0f0f0f] rounded-lg overflow-hidden border border-gold-400/20 group cursor-pointer" onclick="openModal('trailerModal')">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-black/50 flex items-center justify-center">
+                            <div class="w-16 h-16 rounded-full bg-gold-400 text-black flex items-center justify-center shadow-lg group-hover:scale-110 transition">
+                                <i class="fa-solid fa-play ml-1"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-5 text-center">
+                        <h4 class="font-cinzel text-lg font-bold text-white group-hover:text-gold-400 transition">Studio Showreel</h4>
+                    </div>
+                </div>
+
+                <!-- Video Item 2 -->
+                <div class="bg-[#0f0f0f] rounded-lg overflow-hidden border border-gold-400/20 group cursor-pointer" onclick="openModal('trailerModal')">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-black/50 flex items-center justify-center">
+                            <div class="w-16 h-16 rounded-full bg-gold-400 text-black flex items-center justify-center shadow-lg group-hover:scale-110 transition">
+                                <i class="fa-solid fa-play ml-1"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-5 text-center">
+                        <h4 class="font-cinzel text-lg font-bold text-white group-hover:text-gold-400 transition">Behind The Scenes</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-24 bg-[#050505] border-t border-gold-400/20">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 reveal-on-scroll">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <span class="text-gold-400 font-cinzel text-xs tracking-[0.3em] uppercase">Company Profile</span>
+                    <h2 class="font-cinzel text-3xl md:text-5xl font-bold text-white mt-2 mb-8">ABOUT US</h2>
+                    <p class="font-sans font-light text-gray-300 text-base leading-relaxed mb-6">
+                        Seventh Frame Pictures LLP is an independent production company dedicated to the art of modern filmmaking. We collaborate with passionate storytellers and technical craftsmen to bring compelling narratives to life.
+                    </p>
+                    <p class="font-sans font-light text-gray-300 text-base leading-relaxed mb-8">
+                        Based in Kochi, Kerala, our studio integrates traditional cinematic values with contemporary production methodologies to produce content that resonates with modern audiences.
+                    </p>
+                    <a href="#movies" class="text-gold-400 font-cinzel text-sm tracking-widest hover:text-white transition uppercase">
+                        View our slate <i class="fa-solid fa-arrow-right ml-2 text-[10px]"></i>
+                    </a>
+                </div>
+                <div class="relative">
+                    <div class="absolute -inset-2 bg-gradient-to-r from-gold-500 to-transparent rounded-lg blur opacity-10"></div>
+                    <div class="relative bg-[#111] p-2 rounded-lg border border-gold-400/20">
+                        <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?q=80&w=800&auto=format&fit=crop" alt="Cinematic Equipment" class="w-full h-[400px] object-cover rounded grayscale hover:grayscale-0 transition duration-700">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-[#020202] border-t border-gold-400/30 py-16 text-gray-400 text-xs font-cinzel">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+            <div>
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="w-8 h-8 rounded-full border border-gold-400 flex items-center justify-center text-gold-400 font-cinzel font-bold text-sm">
+                        SF
+                    </div>
+                    <span class="font-cinzel text-base font-bold gold-gradient-text tracking-widest">SEVENTH FRAME</span>
+                </div>
+                <p class="font-sans font-light text-gray-500 text-xs leading-relaxed">
+                    Independent production house delivering striking visual narratives and professional cinematic content.
+                </p>
+            </div>
+            <div>
+                <h4 class="text-gold-400 tracking-widest mb-4 font-bold uppercase">Navigation</h4>
+                <ul class="space-y-2.5">
+                    <li><a href="#movies" class="hover:text-gold-300 transition">Productions</a></li>
+                    <li><a href="#divisions" class="hover:text-gold-300 transition">Divisions</a></li>
+                    <li><a href="#videos" class="hover:text-gold-300 transition">Showreel</a></li>
+                    <li><a href="#about" class="hover:text-gold-300 transition">About Us</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-gold-400 tracking-widest mb-4 font-bold uppercase">Headquarters</h4>
+                <p class="text-gray-500 mb-4 leading-relaxed font-sans font-light">
+                    Seventh Frame Pictures LLP<br>
+                    Kochi, Kerala, India
+                </p>
+                <div class="flex space-x-4 text-gold-400 text-lg">
+                    <a href="#" class="hover:text-white transition"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" class="hover:text-white transition"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="hover:text-white transition"><i class="fa-brands fa-linkedin"></i></a>
+                </div>
+            </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 border-t border-gray-900 text-center text-gray-600 text-[10px] tracking-widest uppercase flex flex-col md:flex-row justify-between items-center gap-4">
+            <span>&copy; 2026 Seventh Frame Pictures LLP. All Rights Reserved.</span>
+            <span>DESIGNED & POWERED BY <a href="#" target="_blank" class="text-gold-400 hover:text-white transition">SPARKLANCE SOLUTIONS</a></span>
+        </div>
     </footer>
 
-    <!-- JavaScript for Preloader and Scroll Reveal -->
-    <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            
-            /* --- PRELOADER LOGIC --- */
-            const sleep = ms => new Promise(r => setTimeout(r, ms));
-            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            
-            // Timing adjustments based on user preference
-            const stageDuration = prefersReducedMotion ? 50 : 900; 
-            const preloader = document.getElementById('preloader');
-            const flash = document.getElementById('pl-flash');
-            
-            const stages = [
-                document.getElementById('stage-3'),
-                document.getElementById('stage-2'),
-                document.getElementById('stage-1'),
-                document.getElementById('stage-lights'),
-                document.getElementById('stage-camera'),
-                document.getElementById('stage-action')
-            ];
+    <!-- Video Modal -->
+    <div id="trailerModal" class="fixed inset-0 z-50 hidden bg-black/90 backdrop-blur-md flex items-center justify-center p-4 transition-opacity">
+        <div class="relative bg-[#0f0f0f] border border-gold-400 rounded-lg max-w-4xl w-full p-6 text-center shadow-2xl">
+            <button onclick="closeModal('trailerModal')" class="absolute top-4 right-4 text-gold-400 hover:text-white text-xl font-cinzel">✕</button>
+            <div class="text-gold-400 font-cinzel text-xs tracking-widest uppercase mb-2">✦ Media Player ✦</div>
+            <h3 class="font-cinzel text-2xl font-bold text-white mb-6">Seventh Frame Showreel</h3>
+            <div class="aspect-video bg-black rounded border border-gold-400/30 flex items-center justify-center relative overflow-hidden group">
+                <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=1200&auto=format&fit=crop" class="w-full h-full object-cover opacity-50">
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="w-16 h-16 rounded-full bg-gold-400 text-black flex items-center justify-center text-xl shadow-lg cursor-pointer hover:scale-110 transition">
+                        <i class="fa-solid fa-play ml-1"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-            // Prevent scrolling during preloader
-            document.body.style.overflow = 'hidden';
-
-            if (preloader) {
-                // Ensure small initial delay so browser paints properly before sequence starts
-                await sleep(100);
-
-                for (let i = 0; i < stages.length; i++) {
-                    const currentStage = stages[i];
-                    if (!currentStage) continue;
-
-                    // Hide previous stage
-                    if (i > 0 && stages[i-1]) {
-                        stages[i-1].classList.remove('active');
-                    }
-                    
-                    // Show current stage
-                    currentStage.classList.add('active');
-
-                    // If it's the last stage (Action), handle the clapper and flash
-                    if (i === stages.length - 1) {
-                        // Wait for clapper animation (approx 0.8s defined in CSS)
-                        await sleep(prefersReducedMotion ? 50 : 850); 
-                        
-                        // Trigger Flash
-                        if (flash) flash.classList.add('flash-trigger');
-                        
-                        // Wait for flash peak before starting exit
-                        await sleep(150); 
-                    } else {
-                        // Standard wait between stages
-                        await sleep(stageDuration);
-                    }
-                }
-
-                // Initiate Exit Sequence (Shutter opens)
-                preloader.classList.add('exiting');
-                
-                // Wait for shutter animation to finish (0.6s defined in CSS) before hiding completely
-                setTimeout(() => {
-                    preloader.style.display = 'none';
-                    document.body.style.overflow = ''; // Restore scrolling
-                    
-                    // Trigger scroll reveals after preloader finishes
-                    revealElements();
-                }, 600);
-            }
-
-            /* --- SCROLL REVEAL LOGIC --- */
-            function revealElements() {
-                const reveals = document.querySelectorAll('.reveal-on-scroll');
-                for (let i = 0; i < reveals.length; i++) {
-                    const windowHeight = window.innerHeight;
-                    const elementTop = reveals[i].getBoundingClientRect().top;
-                    const elementVisible = 50;
-
-                    if (elementTop < windowHeight - elementVisible) {
-                        reveals[i].classList.add('active');
-                    }
-                }
-            }
-
-            window.addEventListener('scroll', revealElements);
-            // Initial check just in case elements are already in view (handled primarily after preloader though)
-            // revealElements(); 
-        });
-    </script>
+    <!-- External Script -->
+    <script src="script.js"></script>
 </body>
 </html>
-I have combined the provided CSS into a single HTML file and added a clean, cinematic layout presenting the "Light" and "Dark" sample options as requested. The cinematic preloader is fully integrated and functional.
