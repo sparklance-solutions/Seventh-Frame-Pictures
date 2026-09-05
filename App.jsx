@@ -916,7 +916,17 @@ const Footer = ({ isReady }) => {
       </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 border-t border-gold-400/10 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] tracking-widest uppercase text-gray-600">
         <span>&copy; {new Date().getFullYear()} Seventh Frame Pictures LLP. All Rights Reserved.</span>
-        <span>DESIGNED & POWERED BY <span className="text-gold-400/70">SPARKLANCE SOLUTIONS</span></span>
+       <span>
+  DESIGNED & POWERED BY{' '}
+  <a
+    href="https://sparklancesolutions.com"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-gold-400/70 hover:text-gold-400 transition-colors"
+  >
+    SPARKLANCE SOLUTIONS
+  </a>
+</span>
       </div>
     </footer>
   );
