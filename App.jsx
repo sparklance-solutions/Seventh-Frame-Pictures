@@ -174,15 +174,23 @@ const Navbar = ({ isReady }) => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         <a href="#hero" className="flex items-center space-x-3 group outline-none">
-          <div className="w-10 h-10 rounded-full border border-gold-400 flex items-center justify-center text-gold-400 font-cinzel font-bold text-base group-hover:bg-gold-400 group-hover:text-black transition duration-300">
-            <img src="public/images/logo.webp" alt="Logo" className="w-6 h-6 object-contain hidden" />
-            SF
-          </div>
-          <div>
-            <span className="font-cinzel text-base md:text-lg font-bold tracking-widest gold-gradient-text block">SEVENTH FRAME</span>
-            <span className="text-[8px] tracking-[0.3em] text-gray-400 uppercase block">PICTURES LLP.</span>
-          </div>
-        </a>
+  <div className="w-10 h-10 rounded-full border border-gold-400 flex items-center justify-center text-gold-400 font-cinzel font-bold text-base group-hover:bg-gold-400 group-hover:text-black transition duration-300">
+    <img
+      src="/image/logo.webp"
+      alt="Seventh Frame Pictures Logo"
+      className="w-6 h-6 object-contain"
+    />
+  </div>
+
+  <div>
+    <span className="font-cinzel text-base md:text-lg font-bold tracking-widest gold-gradient-text block">
+      SEVENTH FRAME
+    </span>
+    <span className="text-[8px] tracking-[0.3em] text-gray-400 uppercase block">
+      PICTURES LLP.
+    </span>
+  </div>
+</a>
 
         <nav className="hidden lg:flex items-center space-x-8 font-cinzel text-xs tracking-[0.2em] text-gray-300">
           {['OUR FILMS', 'DIRECTORS BOARD', 'SHOWREEL', 'GALLERY', 'ABOUT US', 'CONTACT US'].map((item) => (
