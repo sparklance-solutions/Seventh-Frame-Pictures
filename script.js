@@ -1,14 +1,18 @@
 /* ==========================================================================
-   STRICT CINEMATIC PRELOADER CONTROLLER & CORE SETUP
+   RELOAD BEHAVIOUR - ENFORCE START FROM TOP BEFORE ANYTHING ELSE
    ========================================================================== */
-
-// 1. Immediately force browser scroll to top on reload, ignoring history position
-if ('scrollRestoration' in history) {
+// This ensures that upon any reload, the browser does not restore scroll position
+if (history.scrollRestoration) {
     history.scrollRestoration = 'manual';
 }
 window.scrollTo(0, 0);
 
-// 2. Lock scrolling globally before anything renders
+
+/* ==========================================================================
+   STRICT CINEMATIC PRELOADER CONTROLLER (PRESERVED)
+   ========================================================================== */
+
+// Immediately lock scrolling globally before anything renders
 document.documentElement.style.overflow = 'hidden';
 document.body.style.overflow = 'hidden';
 
@@ -98,6 +102,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // Unlock scrolling gracefully
             document.documentElement.style.overflow = '';
             document.body.style.overflow = '';
+            
+            // Trigger animations in the Hero section after preloader finishes
+            triggerVisibleAnimations();
+            
         }, 600);
     }
 
@@ -107,86 +115,91 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 /* ==========================================================================
-   WEBSITE INTERACTIONS
+   WEBSITE INTERACTIONS & CINEMATIC SCROLL ANIMATIONS
    ========================================================================== */
 
-// Hero Slider Carousel
-let currentHeroSlide = 0;
-const slides = document.querySelectorAll('.hero-slide');
-const dots = document.querySelectorAll('.hero-dot');
-
-function setHeroSlide(index) {
-    if (!slides.length) return;
-    slides.forEach((slide, i) => {
-        slide.style.opacity = i === index ? '1' : '0';
-    });
-    dots.forEach((dot, i) => {
-        dot.className = i === index ? 'hero-dot w-3 h-3 rounded-full bg-gold-400 transition' : 'hero-dot w-3 h-3 rounded-full bg-gray-600 transition';
-    });
-    currentHeroSlide = index;
-}
-
-if (slides.length > 0) {
-    setInterval(() => {
-        currentHeroSlide = (currentHeroSlide + 1) % slides.length;
-        setHeroSlide(currentHeroSlide);
-    }, 6000); // Slower, more cinematic pace
-}
-
-// Navbar blur and dynamic styling on scroll
+// Navbar dynamic styling on scroll
 window.addEventListener('scroll', () => {
     const nav = document.getElementById('navbar');
     if (!nav) return;
     if (window.scrollY > 50) {
-        nav.classList.add('bg-black/95', 'shadow-lg');
+        nav.classList.add('bg-[#050505]/95', 'border-gold-400/30');
+        nav.classList.remove('bg-[#050505]/90', 'border-gold-400/10');
     } else {
-        nav.classList.remove('bg-black/95', 'shadow-lg');
+        nav.classList.add('bg-[#050505]/90', 'border-gold-400/10');
+        nav.classList.remove('bg-[#050505]/95', 'border-gold-400/30');
     }
 });
 
-// Cinematic Scroll Reveal Observer (Vanilla JS)
+// Intersection Observer for Cinematic Scroll Animations
+const animationSelectors = [
+    '.anim-fade-up', 
+    '.anim-slide-right', 
+    '.anim-slide-left', 
+    '.anim-scale-up', 
+    '.anim-staggered-item',
+    '.anim-line-sweep'
+].join(',');
+
 const observerOptions = {
-    threshold: 0.1, // Trigger earlier
-    rootMargin: '0px 0px -50px 0px'
+    threshold: 0.1, // Trigger when 10% visible
+    rootMargin: '0px 0px -10% 0px' // Slight offset to trigger just as it enters
 };
 
-const observer = new IntersectionObserver((entries) => {
+const cinematicObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('active');
-            // Unobserve after firing to prevent re-triggering constantly
+            // Unobserve to play animation only once
             observer.unobserve(entry.target);
         }
     });
 }, observerOptions);
 
-document.querySelectorAll('.reveal-on-scroll').forEach(el => {
-    observer.observe(el);
+// Setup observer elements once DOM is loaded, but initial check is delayed
+document.addEventListener('DOMContentLoaded', () => {
+    const elementsToAnimate = document.querySelectorAll(animationSelectors);
+    elementsToAnimate.forEach(el => {
+        cinematicObserver.observe(el);
+    });
 });
+
+// Helper function to force check visibility immediately after preloader finishes
+function triggerVisibleAnimations() {
+    const elementsToAnimate = document.querySelectorAll(animationSelectors);
+    elementsToAnimate.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        // If element is in viewport
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+            el.classList.add('active');
+            cinematicObserver.unobserve(el);
+        }
+    });
+}
 
 // Mobile menu toggle logic
 function toggleMobileMenu() {
     const menu = document.getElementById('mobile-menu');
+    const icon = document.getElementById('menu-icon');
     if (menu) {
         menu.classList.toggle('hidden');
+        if(menu.classList.contains('hidden')){
+            icon.classList.remove('fa-xmark');
+            icon.classList.add('fa-bars');
+        } else {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-xmark');
+        }
     }
 }
 
-// Modal and Video Controls
+// Modal controls
 function openModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
         modal.classList.remove('hidden');
         document.documentElement.style.overflow = 'hidden';
         document.body.style.overflow = 'hidden';
-        
-        // Autoplay logic if a video is embedded
-        const video = modal.querySelector('video');
-        if (video) {
-            video.play().catch(error => {
-                console.log("Autoplay was prevented by browser. User interaction required.");
-            });
-        }
     }
 }
 
@@ -196,12 +209,5 @@ function closeModal(modalId) {
         modal.classList.add('hidden');
         document.documentElement.style.overflow = '';
         document.body.style.overflow = '';
-        
-        // Stop video playback on close
-        const video = modal.querySelector('video');
-        if (video) {
-            video.pause();
-            video.currentTime = 0;
-        }
     }
 }
