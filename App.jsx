@@ -170,7 +170,7 @@ const Navbar = ({ isReady }) => {
   return (
     <header 
       ref={navRef}
-      className={`fixed top-0 left-0 right-0 z-40 transition-colors duration-700 border-b invisible-until-scroll ${isReady ? '!visibility-visible' : ''} ${scrolled ? 'bg-[#050505]/95 backdrop-blur-md border-gold-400/20 shadow-lg' : 'bg-transparent border-transparent'}`}
+      className={`fixed top-0 left-0 right-0 z-40 transition-colors duration-700 border-b invisible-until-scroll ${scrolled ? 'bg-[#050505]/95 backdrop-blur-md border-gold-400/20 shadow-lg' : 'bg-transparent border-transparent'}`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         <a href="#hero" className="flex items-center space-x-3 group outline-none">
@@ -916,10 +916,10 @@ const Footer = ({ isReady }) => {
       </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 border-t border-gold-400/10 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] tracking-widest uppercase text-gray-600">
         <span>&copy; {new Date().getFullYear()} Seventh Frame Pictures LLP. All Rights Reserved.</span>
-       <span>
+        <span>
   DESIGNED & POWERED BY{' '}
   <a
-    href="https://sparklancesolutions.com"
+    href="https://sparklance-solutions.netlify.app/"
     target="_blank"
     rel="noopener noreferrer"
     className="text-gold-400/70 hover:text-gold-400 transition-colors"
